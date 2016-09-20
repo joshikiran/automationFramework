@@ -15,17 +15,20 @@ public class DefaultController {
 
 	@RequestMapping(value = "/executeTestSuite")
 	public String executeTestSuite(@RequestParam(name = "suiteId") String suiteId,
-			@RequestParam(name = "projectCode") String projectCode, @RequestParam(name = "userName") String userName)
+			@RequestParam(name = "projectCode") String projectCode, @RequestParam(name = "userName") String userName,
+			@RequestParam(name = "browser", defaultValue = "chrome", required = false) String browser)
 			throws Exception {
-		defServ.runTestSuite(suiteId, projectCode, userName);
+		defServ.runTestSuite(suiteId, projectCode, userName, browser);
 		return "success";
 	}
 
 	@RequestMapping(value = "/executeTestCase")
 	public String executeTestCase(@RequestParam(name = "suiteId") String suiteId,
 			@RequestParam(name = "caseId") String caseId, @RequestParam(name = "projectCode") String projectCode,
-			@RequestParam(name = "userName") String userName) throws Exception {
-		defServ.runTestCase(suiteId, caseId, projectCode, userName);
+			@RequestParam(name = "userName") String userName,
+			@RequestParam(name = "browser", defaultValue = "chrome", required = false) String browser)
+			throws Exception {
+		defServ.runTestCase(suiteId, caseId, projectCode, userName, browser);
 		return "success";
 	}
 

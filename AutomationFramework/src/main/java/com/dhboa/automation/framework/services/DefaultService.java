@@ -75,11 +75,11 @@ public class DefaultService {
 	 * 
 	 * @throws Exception
 	 */
-	public void runTestSuite(String testSuiteId, String projectCode, String userName) throws Exception {
+	public void runTestSuite(String testSuiteId, String projectCode, String userName, String browser) throws Exception {
 		Project prj = projRep.findOne(projectCode);
 		User user = userRep.findOne(userName);
 		TestSuite tSuite = getSuiteByReference(tSuiteRep.findOne(testSuiteId));
-		runTestSuiteById(tSuite, prj, user);
+		runTestSuiteById(tSuite, prj, user, browser);
 	}
 
 	/**
@@ -91,13 +91,13 @@ public class DefaultService {
 	 * @param userName
 	 * @throws Exception
 	 */
-	public void runTestCase(String testSuiteId, String testCaseId, String projectCode, String userName)
+	public void runTestCase(String testSuiteId, String testCaseId, String projectCode, String userName, String browser)
 			throws Exception {
 		Project prj = projRep.findOne(projectCode);
 		User user = userRep.findOne(userName);
 		TestSuite tSuite = getSuiteByReference(tSuiteRep.findOne(testSuiteId));
 		TestCase tCase = getCaseByReference(tcRep.findOne(testCaseId));
-		runTestCaseById(tSuite, tCase.getOrder(), tCase, prj, user, null);
+		runTestCaseById(tSuite, tCase.getOrder(), tCase, prj, user, null, browser);
 	}
 
 	/**
@@ -214,7 +214,7 @@ public class DefaultService {
 	 * @param user
 	 * @throws Exception
 	 */
-	public void runTestSuiteById(TestSuite testSuite, Project proj, User user) throws Exception {
+	public void runTestSuiteById(TestSuite testSuite, Project proj, User user, String browser) throws Exception {
 		TestSuiteResults testSuiteResultRef = null;
 		List<TestCase> tCases = null;
 		String methodName = "runTestSuiteById";
@@ -245,7 +245,7 @@ public class DefaultService {
 					// Run this logic for each and every test case.
 					tCase = getCaseByReference(tCase);
 					// Run this test case using the id fetched from above.
-					runTestCaseById(testSuite, tCase.getOrder(), tCase, proj, user, testSuiteResultRef);
+					runTestCaseById(testSuite, tCase.getOrder(), tCase, proj, user, testSuiteResultRef, browser);
 				}
 			} else {
 				// Log properly
@@ -281,7 +281,7 @@ public class DefaultService {
 	 * @throws Exception
 	 */
 	public void runTestCaseById(TestSuite testSuite, int order, TestCase testCaseRef, Project project, User user,
-			TestSuiteResults testSuiteResultRef) throws Exception {
+			TestSuiteResults testSuiteResultRef, String browser) throws Exception {
 		List<TestStep> tSteps = null;
 		List<StepDetails> stepDetails = null;
 		List<Object[]> testCase = null;
@@ -337,7 +337,7 @@ public class DefaultService {
 			}
 			if (!testCase.isEmpty()) {
 				// Getting the web driver
-				getWebDriver();
+				getWebDriver(browser);
 				// Run the test case which is formed. This is a combination of
 				// various test steps.
 				runTestCase(tSteps, testCase, testSuite, testCaseResultRef);
@@ -368,10 +368,10 @@ public class DefaultService {
 	 * 
 	 * 
 	 */
-	public void getWebDriver() {
+	public void getWebDriver(String browser) {
 		alServ.log("INFO", logger, currentClass, "getWebDriver", "",
 				" DefaultService : getWebDriver : Getting the web driver");
-		driver = comm.getWebDriver("chrome");
+		driver = comm.getWebDriver(browser);
 		comm.maximizeWindow(driver);
 		alServ.log("INFO", logger, currentClass, "getWebDriver", "",
 				" DefaultService : getWebDriver : Completed with getting web driver");
