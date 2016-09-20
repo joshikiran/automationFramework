@@ -75,11 +75,29 @@ public class DefaultService {
 	 * 
 	 * @throws Exception
 	 */
-	public void runDefaultService(String testSuiteId, String projectCode, String userName) throws Exception {
+	public void runTestSuite(String testSuiteId, String projectCode, String userName) throws Exception {
 		Project prj = projRep.findOne(projectCode);
 		User user = userRep.findOne(userName);
 		TestSuite tSuite = getSuiteByReference(tSuiteRep.findOne(testSuiteId));
 		runTestSuiteById(tSuite, prj, user);
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param testSuiteId
+	 * @param testCaseId
+	 * @param projectCode
+	 * @param userName
+	 * @throws Exception
+	 */
+	public void runTestCase(String testSuiteId, String testCaseId, String projectCode, String userName)
+			throws Exception {
+		Project prj = projRep.findOne(projectCode);
+		User user = userRep.findOne(userName);
+		TestSuite tSuite = getSuiteByReference(tSuiteRep.findOne(testSuiteId));
+		TestCase tCase = getCaseByReference(tcRep.findOne(testCaseId));
+		runTestCaseById(tSuite, tCase.getOrder(), tCase, prj, user, null);
 	}
 
 	/**

@@ -13,11 +13,20 @@ public class DefaultController {
 	@Autowired
 	DefaultService defServ;
 
-	@RequestMapping(name = "/executeTestSuite")
+	@RequestMapping(value = "/executeTestSuite")
 	public String executeTestSuite(@RequestParam(name = "suiteId") String suiteId,
 			@RequestParam(name = "projectCode") String projectCode, @RequestParam(name = "userName") String userName)
 			throws Exception {
-		defServ.runDefaultService(suiteId, projectCode, userName);
+		defServ.runTestSuite(suiteId, projectCode, userName);
 		return "success";
 	}
+
+	@RequestMapping(value = "/executeTestCase")
+	public String executeTestCase(@RequestParam(name = "suiteId") String suiteId,
+			@RequestParam(name = "caseId") String caseId, @RequestParam(name = "projectCode") String projectCode,
+			@RequestParam(name = "userName") String userName) throws Exception {
+		defServ.runTestCase(suiteId, caseId, projectCode, userName);
+		return "success";
+	}
+
 }
