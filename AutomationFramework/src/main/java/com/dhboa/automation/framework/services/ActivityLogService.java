@@ -27,6 +27,15 @@ public class ActivityLogService {
 	public void log(String logLevel, Logger logger, String moduleName, String activityName, String status,
 			String statusDescription) {
 
+		if ("INFO".equalsIgnoreCase(logLevel)) {
+			logger.info(statusDescription);
+		}
+		if ("DEBUG".equalsIgnoreCase(logLevel)) {
+			logger.debug(statusDescription);
+		}
+		if ("ERROR".equalsIgnoreCase(logLevel)) {
+			logger.error(statusDescription);
+		}
 	}
 
 	/**
@@ -64,7 +73,7 @@ public class ActivityLogService {
 	 */
 	public void logError(Logger logger, String moduleName, String activityName, String status, String statusDescription,
 			String additional1, String additional2, String additional3, String additional4, String additional5) {
-
+		
 	}
 
 	/**
@@ -77,7 +86,6 @@ public class ActivityLogService {
 	 */
 	public void logError(Logger logger, String moduleName, String activityName, String status, String statusDescription,
 			Exception e) {
-
 		logger.error("Application encountered exception with details ", e);
 	}
 
