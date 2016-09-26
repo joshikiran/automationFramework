@@ -3,6 +3,7 @@ package com.dhboa.automation.framework.services;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
@@ -20,6 +21,7 @@ import com.dhboa.automation.framework.entities.TestStepResults;
 import com.dhboa.automation.framework.entities.TestSuite;
 import com.dhboa.automation.framework.entities.TestSuiteResults;
 import com.dhboa.automation.framework.entities.User;
+import com.dhboa.automation.framework.entities.Variable;
 import com.dhboa.automation.framework.repositories.MethodParamsRepository;
 import com.dhboa.automation.framework.repositories.MethodRepository;
 import com.dhboa.automation.framework.repositories.ProjectRepository;
@@ -28,6 +30,7 @@ import com.dhboa.automation.framework.repositories.TestStepDetailsRepository;
 import com.dhboa.automation.framework.repositories.TestStepRepository;
 import com.dhboa.automation.framework.repositories.TestSuiteRepository;
 import com.dhboa.automation.framework.repositories.UserRepository;
+import com.dhboa.automation.framework.repositories.VariableRepository;
 
 @Service
 public class DefaultService {
@@ -57,6 +60,8 @@ public class DefaultService {
 	String currentClass = getClass().getCanonicalName();
 	@Autowired
 	UtilityService utilServ;
+	@Autowired
+	VariableRepository varRep;
 	private final String IN_PROGRESS_STATUS = "INPROGRESS";
 	private final String SUCCESS_STATUS = "SUCCESS";
 	private final String FAILED_STATUS = "FAILED";
@@ -340,7 +345,7 @@ public class DefaultService {
 				getWebDriver(browser);
 				// Run the test case which is formed. This is a combination of
 				// various test steps.
-				runTestCase(tSteps, testCase, testSuite, testCaseResultRef);
+				runTestCase(tSteps, testCase, testSuite, testCaseResultRef,user);
 				utilServ.logTestCaseStatus(logger, SUCCESS_STATUS, "Completed the test case", testSuiteResultRef,
 						testCaseRef, order, testCaseResultRef);
 			} else {
@@ -386,12 +391,13 @@ public class DefaultService {
 	 * @throws Exception
 	 */
 	public void runTestCase(List<TestStep> tSteps, List<Object[]> testCase, TestSuite testSuiteId,
-			TestCaseResults testCaseResultRef) throws Exception {
+			TestCaseResults testCaseResultRef,User user) throws Exception {
 		String methodName = "runTestCase";
 		TestStep testStepRef = null;
 		Object[] testStep = null;
 		int order = 0;
 		TestStepResults tStepResultRef = null;
+		Variable var = null;
 		try {
 			alServ.log("INFO", logger, currentClass, methodName, "",
 					" DefaultService : runTestCase : Inside running a test Case");
@@ -399,9 +405,25 @@ public class DefaultService {
 				testStep = testCase.get(i);
 				testStepRef = tSteps.get(i);
 				order = tSteps.get(i).getOrder();
+				try{
+				if(!(testStepRef.getAdditional1().isEmpty() && testStepRef.getAdditional2().isEmpty()))
+				{//check if variable exists
+					TestCase testCaseRef=null;
+					 if(testStepRef.getAdditional1().equalsIgnoreCase("case"))
+					{
+
+						testCaseRef=testStepRef.getTestCase();
+					}
+					Variable variable =varRep.findByVariableNameAndProjectAndUserAndTestSuiteAndTestCase(testStepRef.getAdditional2(), testSuiteId.getProject(), user, testSuiteId, testCaseRef);
+					if(variable==null)
+						 var =createVariable(testStepRef, testSuiteId, user);
+					else
+						var=variable;
+				}
+				}catch (NullPointerException e ){}
 				tStepResultRef = utilServ.logTestStepStatus(logger, IN_PROGRESS_STATUS, "Started the test case ",
 						testCaseResultRef, testStepRef, order, null);
-				runTestStep(commonsClass, testStep);
+				runTestStep(commonsClass, testStep, var, testStepRef, testSuiteId, user);
 				utilServ.logTestStepStatus(logger, SUCCESS_STATUS, "Completed the test case ", testCaseResultRef,
 						testStepRef, order, tStepResultRef);
 			}
@@ -433,7 +455,7 @@ public class DefaultService {
 	 * @param parameters
 	 * @throws Exception
 	 */
-	private void runTestStep(Class<?> runTimeClass, Object[] parameters) throws Exception {
+	private void runTestStep(Class<?> runTimeClass, Object[] parameters, Variable var, TestStep testStep, TestSuite testSuite, User user) throws Exception {
 		int totalParams = 0;
 		String[] paramValues = null;
 		String methodName = "runTestStep";
@@ -446,7 +468,7 @@ public class DefaultService {
 			alServ.log("INFO", logger, currentClass, methodName, "",
 					" DefaultService : runTestStep : Running the test step without any parameters for the method "
 							+ parameters[0]);
-			runTestStep(runTimeClass, String.valueOf(parameters[0]));
+			runTestStep(runTimeClass, String.valueOf(parameters[0]), var, testStep, testSuite, user);
 		} else {
 			alServ.log("INFO", logger, currentClass, methodName, "",
 					" DefaultService : runTestStep : Running the test step with " + totalParams
@@ -455,7 +477,7 @@ public class DefaultService {
 			for (int i = 0; i < parameters.length - 1; i++) {
 				paramValues[i] = String.valueOf(parameters[i + 1]);
 			}
-			runTestStep(runTimeClass, String.valueOf(parameters[0]), paramValues);
+			runTestStep(runTimeClass, String.valueOf(parameters[0]),var, testStep, testSuite, user, paramValues);
 		}
 
 		alServ.log("INFO", logger, currentClass, methodName, "",
@@ -469,11 +491,13 @@ public class DefaultService {
 	 * @param parameters
 	 * @throws Exception
 	 */
-	private void runTestStep(Class<?> runTimeClass, String methodName, String... parameters) throws Exception {
+	private void runTestStep(Class<?> runTimeClass, String methodName, Variable var, TestStep testStep, TestSuite testSuite, User user, String... parameters) throws Exception {
 		Method methodToBeCalled = null;
 		Class<?> params[] = null;
 		int totalParams = 1;
 		Object[] paramValues = null;
+		String variableValue=null;
+		String returnValue=null;
 		if (parameters != null && parameters.length > 0) {
 			totalParams = totalParams + parameters.length;
 		}
@@ -482,11 +506,79 @@ public class DefaultService {
 		params[0] = WebDriver.class;
 		paramValues[0] = driver;
 		for (int i = 0; i < parameters.length; i++) {
+			if(parameters[i].contains("{{")&&parameters[i].contains("}}"))
+			{//variable exists
+				variableValue =replaceParamValue(testStep, testSuite, user, parameters[i]);
+				parameters[i]=variableValue;
+			}
 			paramValues[i + 1] = parameters[i];
 			params[i + 1] = String.class;
+			
 		}
 		methodToBeCalled = runTimeClass.getDeclaredMethod(methodName, params);
 		Object newObj = runTimeClass.newInstance();
+			if(methodToBeCalled.getReturnType()!=void.class)
+			{	
+			returnValue=(String) methodToBeCalled.invoke(newObj, paramValues);
+			updateVariable(var,returnValue);	
+		}else{
 		methodToBeCalled.invoke(newObj, paramValues);
+		}
+	}
+	
+	/**
+	 * @param variable
+	 * @param variableValue
+	 */
+	public void updateVariable(Variable variable,String variableValue){
+		variable.setVariableValue(variableValue);
+		varRep.save(variable);
+	}
+	
+	/**
+	 * @param testStep
+	 * @param testSuite
+	 * @param user
+	 * @return
+	 */
+	
+	public Variable createVariable(TestStep testStep, TestSuite testSuite, User user){
+		Variable var = new Variable();
+		String variableName= testStep.getAdditional2();
+		var.setId(UUID.randomUUID().toString());
+		var.setVariableName(variableName);
+		var.setProject(testStep.getProject());
+		var.setUser(user);
+		if(testStep.getAdditional1().equalsIgnoreCase("suite"))
+			var.setTestSuite(testSuite);
+		if(testStep.getAdditional1().equalsIgnoreCase("case"))
+		{
+			var.setTestSuite(testSuite);
+			var.setTestCase(testStep.getTestCase());
+		}
+		
+		varRep.save(var);	
+		return var;
+	}
+	
+	/**
+	 * @param testStep
+	 * @param testSuite
+	 * @param user
+	 * @param parameter
+	 * @return
+	 */
+	public String replaceParamValue(TestStep testStep, TestSuite testSuite, User user, String parameter){
+		TestCase testCaseRef=null;
+		Variable variable =null;
+		parameter = parameter.replace("{{","");
+		parameter = parameter.replace("}}","");
+		if(parameter.contains("@suite"))
+			parameter= parameter.replace("@suite","");
+		else
+			testCaseRef= testStep.getTestCase();
+			
+		 variable = varRep.findByVariableNameAndProjectAndUserAndTestSuiteAndTestCase(parameter, testSuite.getProject(), user, testSuite, testCaseRef);
+		 return variable.getVariableValue();
 	}
 }

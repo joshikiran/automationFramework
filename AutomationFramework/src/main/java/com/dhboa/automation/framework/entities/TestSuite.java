@@ -1,9 +1,12 @@
 package com.dhboa.automation.framework.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.dhboa.automation.framework.components.AbstractEntity;
@@ -32,6 +35,9 @@ public class TestSuite extends AbstractEntity {
 	@Column(name = "test_suite_reference")
 	private String testSuiteReference;
 
+	@OneToMany
+	private List<Variable> variables;
+	
 	public String getSuiteName() {
 		return suiteName;
 	}
@@ -78,5 +84,14 @@ public class TestSuite extends AbstractEntity {
 
 	public void setTestSuiteReference(String testSuiteReference) {
 		this.testSuiteReference = testSuiteReference;
+	}
+
+	public List<Variable> getVariables() {
+		return variables;
+	}
+
+	public void setVariables(List<Variable> variables) {
+		this.variables = variables;
 	}	
+	
 }

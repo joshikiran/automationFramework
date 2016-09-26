@@ -10,7 +10,7 @@ import javax.persistence.Table;
 public class Project {
 
 	@Id
-	@Column(name = "project_code", length = 500)
+	@Column(name = "project_code", length = 200)
 	private String projectCode;
 
 	@Column(name = "project_description", length = 500)
