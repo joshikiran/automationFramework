@@ -405,11 +405,11 @@ public class DefaultService {
 				testStep = testCase.get(i);
 				testStepRef = tSteps.get(i);
 				order = tSteps.get(i).getOrder();
-				try{
-				if(!(testStepRef.getAdditional1().isEmpty() && testStepRef.getAdditional2().isEmpty()))
-				{//check if variable exists
+				
+				if(null!=testStepRef && null!=testStepRef.getAdditional1() && null!=testStepRef.getAdditional2())
+				{//check if variable exists		
 					TestCase testCaseRef=null;
-					 if(testStepRef.getAdditional1().equalsIgnoreCase("case"))
+					 if("case".equalsIgnoreCase(testStepRef.getAdditional1()))
 					{
 
 						testCaseRef=testStepRef.getTestCase();
@@ -420,7 +420,7 @@ public class DefaultService {
 					else
 						var=variable;
 				}
-				}catch (NullPointerException e ){}
+				
 				tStepResultRef = utilServ.logTestStepStatus(logger, IN_PROGRESS_STATUS, "Started the test case ",
 						testCaseResultRef, testStepRef, order, null);
 				runTestStep(commonsClass, testStep, var, testStepRef, testSuiteId, user);
@@ -506,7 +506,7 @@ public class DefaultService {
 		params[0] = WebDriver.class;
 		paramValues[0] = driver;
 		for (int i = 0; i < parameters.length; i++) {
-			if(parameters[i].contains("{{")&&parameters[i].contains("}}"))
+			if(parameters[i].contains("{{") && parameters[i].contains("}}"))
 			{//variable exists
 				variableValue =replaceParamValue(testStep, testSuite, user, parameters[i]);
 				parameters[i]=variableValue;
@@ -531,8 +531,10 @@ public class DefaultService {
 	 * @param variableValue
 	 */
 	public void updateVariable(Variable variable,String variableValue){
+		String methodName = "updateVariable";
 		variable.setVariableValue(variableValue);
 		varRep.save(variable);
+		alServ.log("INFO", logger, currentClass, methodName, "", "DefualtService : updateVariable : Variablevalue for variable "+ variable.getVariableName()+ " updated successfully.");
 	}
 	
 	/**
@@ -543,21 +545,26 @@ public class DefaultService {
 	 */
 	
 	public Variable createVariable(TestStep testStep, TestSuite testSuite, User user){
+		String methodName="createVariable";
+		alServ.log("INFO", logger, currentClass, methodName, "",
+				" DefaultService : createVariable : Creating a new variable object");
 		Variable var = new Variable();
 		String variableName= testStep.getAdditional2();
 		var.setId(UUID.randomUUID().toString());
 		var.setVariableName(variableName);
 		var.setProject(testStep.getProject());
 		var.setUser(user);
-		if(testStep.getAdditional1().equalsIgnoreCase("suite"))
+		if("suite".equalsIgnoreCase(testStep.getAdditional1()))
 			var.setTestSuite(testSuite);
-		if(testStep.getAdditional1().equalsIgnoreCase("case"))
+		if("case".equalsIgnoreCase(testStep.getAdditional1()))
 		{
 			var.setTestSuite(testSuite);
 			var.setTestCase(testStep.getTestCase());
 		}
 		
 		varRep.save(var);	
+		alServ.log("INFO", logger, currentClass, methodName, "",
+				" DefaultService : createVariable : Variable object persisted successfully");
 		return var;
 	}
 	
@@ -571,14 +578,18 @@ public class DefaultService {
 	public String replaceParamValue(TestStep testStep, TestSuite testSuite, User user, String parameter){
 		TestCase testCaseRef=null;
 		Variable variable =null;
+		String variableValue=null;
+		String methodName="replaceParamValue";
 		parameter = parameter.replace("{{","");
 		parameter = parameter.replace("}}","");
+		
 		if(parameter.contains("@suite"))
 			parameter= parameter.replace("@suite","");
 		else
 			testCaseRef= testStep.getTestCase();
-			
+	alServ.log("INFO", logger, currentClass, methodName, "", "DefaultServie : replaceParamValue : Trying to replace parameter value from database");		
 		 variable = varRep.findByVariableNameAndProjectAndUserAndTestSuiteAndTestCase(parameter, testSuite.getProject(), user, testSuite, testCaseRef);
-		 return variable.getVariableValue();
+		 variableValue=variable.getVariableValue();
+		 return variableValue;
 	}
 }
