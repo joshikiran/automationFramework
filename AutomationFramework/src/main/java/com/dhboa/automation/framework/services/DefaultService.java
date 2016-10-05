@@ -1,6 +1,7 @@
 package com.dhboa.automation.framework.services;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -11,7 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dhboa.automation.framework.components.CommonActions;
+import com.dhboa.automation.framework.components.AutowiredUtilObjects;
+import com.dhboa.automation.framework.entities.MethodParams;
 import com.dhboa.automation.framework.entities.Project;
 import com.dhboa.automation.framework.entities.StepDetails;
 import com.dhboa.automation.framework.entities.TestCase;
@@ -22,46 +24,15 @@ import com.dhboa.automation.framework.entities.TestSuite;
 import com.dhboa.automation.framework.entities.TestSuiteResults;
 import com.dhboa.automation.framework.entities.User;
 import com.dhboa.automation.framework.entities.Variable;
-import com.dhboa.automation.framework.repositories.MethodParamsRepository;
-import com.dhboa.automation.framework.repositories.MethodRepository;
-import com.dhboa.automation.framework.repositories.ProjectRepository;
-import com.dhboa.automation.framework.repositories.TestCaseRepository;
-import com.dhboa.automation.framework.repositories.TestStepDetailsRepository;
-import com.dhboa.automation.framework.repositories.TestStepRepository;
-import com.dhboa.automation.framework.repositories.TestSuiteRepository;
-import com.dhboa.automation.framework.repositories.UserRepository;
-import com.dhboa.automation.framework.repositories.VariableRepository;
 
 @Service
-public class DefaultService {
+public class DefaultService extends AutowiredUtilObjects {
 
 	private static WebDriver driver = null;
 	Logger logger = LoggerFactory.getLogger(getClass());
-	@Autowired
-	CommonActions comm;
-	@Autowired
-	MethodRepository mRep;
-	@Autowired
-	MethodParamsRepository mpRep;
-	@Autowired
-	TestStepRepository tsRep;
-	@Autowired
-	TestSuiteRepository tSuiteRep;
-	@Autowired
-	TestCaseRepository tcRep;
-	@Autowired
-	TestStepDetailsRepository tsDetailsRep;
-	@Autowired
-	ProjectRepository projRep;
-	@Autowired
-	UserRepository userRep;
-	@Autowired
-	ActivityLogService alServ;
+	
 	String currentClass = getClass().getCanonicalName();
-	@Autowired
-	UtilityService utilServ;
-	@Autowired
-	VariableRepository varRep;
+	
 	private final String IN_PROGRESS_STATUS = "INPROGRESS";
 	private final String SUCCESS_STATUS = "SUCCESS";
 	private final String FAILED_STATUS = "FAILED";
@@ -592,4 +563,54 @@ public class DefaultService {
 		 variableValue=variable.getVariableValue();
 		 return variableValue;
 	}
+
+	/**Gets Methods from {@link com.dhboa.automation.framework.components.CommonActions}
+	 * and persists to Method and MethodParam repositories.
+	 * @throws SecurityException
+	 * @throws ClassNotFoundException
+	 */
+	public void getMethods() throws SecurityException, ClassNotFoundException{
+		Method[] methods = Class.forName("com.dhboa.automation.framework.components.CommonActions").getDeclaredMethods();
+		Project project = new Project();
+		project.setProjectCode("Test");
+		String descpString = null;
+		
+		try
+		{
+		for(Method method: methods)
+		{
+			com.dhboa.automation.framework.entities.Method methodObj = new com.dhboa.automation.framework.entities.Method();
+			methodObj.setId(UUID.randomUUID().toString());
+			methodObj.setMethodName(method.getName());
+			methodObj.setActive(true);
+			methodObj.setMethodDescription("no parameters");
+			methodObj.setProject(project);
+			if(method.getParameters()!=null)
+			{
+			Parameter[] params = method.getParameters();
+			List<String> paramNames = new ArrayList<>();
+			List<MethodParams> paramList = new ArrayList<>();
+			for(Parameter param: params){
+				MethodParams paramObj = new MethodParams();
+				paramObj.setId(UUID.randomUUID().toString());
+				paramObj.setActive(true);
+				paramObj.setParamDescription(param.getType().getSimpleName());
+				paramObj.setParamName(param.getName());
+				paramObj.setMethod(methodObj);
+
+				paramNames.add(param.getName());
+				descpString = String.join(",", paramNames);
+				methodObj.setMethodDescription(descpString);
+				paramList.add(paramObj);
+			}
+			mRep.save(methodObj);
+			mpRep.save(paramList);
+			}
+		}
+	}catch(Exception e)
+		{
+		e.printStackTrace();
+		}
+	}	
+	
 }

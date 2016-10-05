@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -47,6 +48,9 @@ public class TestCase extends AbstractEntity {
 	
 	@OneToMany
 	private List<Variable> variables;
+	
+	@OneToMany(mappedBy="testCase", fetch=FetchType.EAGER)
+	private List<TestStep> testSteps;
 
 	public String getTestCaseReference() {
 		return testCaseReference;
@@ -127,5 +131,14 @@ public class TestCase extends AbstractEntity {
 	public void setVariables(List<Variable> variables) {
 		this.variables = variables;
 	}
+
+	public List<TestStep> getTestSteps() {
+		return testSteps;
+	}
+
+	public void setTestSteps(List<TestStep> testSteps) {
+		this.testSteps = testSteps;
+	}
+	
 
 }

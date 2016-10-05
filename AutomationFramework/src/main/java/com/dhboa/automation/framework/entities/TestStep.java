@@ -1,18 +1,24 @@
 package com.dhboa.automation.framework.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.dhboa.automation.framework.components.AbstractEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="af_test_step")
 public class TestStep extends AbstractEntity{
 	
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "test_case_id", nullable = true, updatable = true, insertable = true)
 	private TestCase testCase;
 
@@ -39,6 +45,9 @@ public class TestStep extends AbstractEntity{
 	@Column(name = "test_step_reference")
 	private String testStepRef;
 
+	@OneToMany(mappedBy = "testStep" , fetch=FetchType.EAGER)
+	private List<StepDetails> stepDetails;
+	
 	public TestCase getTestCase() {
 		return testCase;
 	}
@@ -101,6 +110,14 @@ public class TestStep extends AbstractEntity{
 
 	public void setTestCaseDescription(String testCaseDescription) {
 		this.testCaseDescription = testCaseDescription;
+	}
+
+	public List<StepDetails> getStepDetails() {
+		return stepDetails;
+	}
+
+	public void setStepDetails(List<StepDetails> stepDetails) {
+		this.stepDetails = stepDetails;
 	}
 		
 }

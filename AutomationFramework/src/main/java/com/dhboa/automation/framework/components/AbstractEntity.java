@@ -1,10 +1,12 @@
 package com.dhboa.automation.framework.components;
 
 import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -127,5 +129,14 @@ public class AbstractEntity {
 	@PreUpdate
 	public void onBeforeUpdate() {
 		this.setModifiedOn(new Date());
+	}
+	
+	@PrePersist
+	public void onBeforePersist(){
+		this.setCreatedOn(new Date());
+		if(this.id == null && "".equalsIgnoreCase(this.id))
+		{
+			this.setId(UUID.randomUUID().toString());
+		}
 	}
 }

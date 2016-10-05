@@ -7,12 +7,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.dhboa.automation.framework.components.AbstractEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "af_method_params")
 public class MethodParams extends AbstractEntity {
 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "method_name", nullable = false, updatable = true, insertable = true)
 	private Method method;
 

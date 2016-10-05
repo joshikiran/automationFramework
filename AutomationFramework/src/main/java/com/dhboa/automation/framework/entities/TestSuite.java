@@ -38,6 +38,17 @@ public class TestSuite extends AbstractEntity {
 	@OneToMany
 	private List<Variable> variables;
 	
+	@OneToMany(mappedBy="testSuite")
+	private List<TestCase> testCases;
+	
+	public List<TestCase> getTestCases() {
+		return testCases;
+	}
+
+	public void setTestCases(List<TestCase> testCases) {
+		this.testCases = testCases;
+	}
+
 	public String getSuiteName() {
 		return suiteName;
 	}

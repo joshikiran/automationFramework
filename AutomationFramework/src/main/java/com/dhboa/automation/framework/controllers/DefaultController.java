@@ -1,18 +1,25 @@
 package com.dhboa.automation.framework.controllers;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.security.Principal;
+import java.util.List;
+
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dhboa.automation.framework.services.DefaultService;
+import com.dhboa.automation.framework.components.AutowiredUtilObjects;
+import com.dhboa.automation.framework.entities.Method;
+import com.dhboa.automation.framework.entities.TestCase;
+import com.dhboa.automation.framework.entities.User;
+import com.dhboa.automation.framework.services.PersistService.TestSuiteObj;
 
 @RestController
-public class DefaultController {
-
-	@Autowired
-	DefaultService defServ;
+public class DefaultController extends AutowiredUtilObjects {
+	
 
 	@RequestMapping(value = "/executeTestSuite")
 	public String executeTestSuite(@RequestParam(name = "suiteId") String suiteId,
@@ -31,5 +38,28 @@ public class DefaultController {
 			throws Exception {
 		defServ.runTestCase(suiteId, caseId, projectCode, userName, browser);
 		return "success";
+	}
+
+	@RequestMapping(value = "default/getUser", method = RequestMethod.GET)
+	public User getUserInfo(Principal user) {
+		 SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return userRep.findOne(user.getName());
+	}
+	
+	
+	@RequestMapping(value="/default/getMethods")
+	public List<Method> getMethods(){
+		return mRep.findAll();
+	}
+	
+	@RequestMapping(value="default/save", method= RequestMethod.POST)
+	public void saveAny(@RequestBody TestSuiteObj object, @RequestParam(name="testSuiteId")String testSuiteId,
+			@RequestParam(name="projectCode")String projectCode, @RequestParam(name="testCaseId")String testCaseId){
+		persistServ.saveTestObjects(object, testSuiteId, projectCode, testCaseId);		
+	}
+	
+	@RequestMapping(value="default/getTestCase")
+	public List<TestCase> getTestCase(){
+		return tcRep.findAll();
 	}
 }

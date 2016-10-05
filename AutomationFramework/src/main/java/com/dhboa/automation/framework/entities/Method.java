@@ -1,10 +1,15 @@
 package com.dhboa.automation.framework.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 import com.dhboa.automation.framework.components.AbstractEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,6 +31,9 @@ public class Method extends AbstractEntity {
 	@Column(name = "enabled")
 	private boolean isActive;
 
+	@OneToMany(mappedBy="method", fetch=FetchType.EAGER)
+	List<MethodParams> params;
+	
 	@JsonIgnore
 	public Project getProject() {
 		return project;
@@ -58,4 +66,13 @@ public class Method extends AbstractEntity {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
+
+	public List<MethodParams> getParams() {
+		return params;
+	}
+
+	public void setParams(List<MethodParams> params) {
+		this.params = params;
+	}
+	
 }

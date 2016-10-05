@@ -7,12 +7,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.dhboa.automation.framework.components.AbstractEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "af_step_details")
 public class StepDetails extends AbstractEntity {
 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "test_step_id", nullable = false, updatable = true, insertable = true)
 	private TestStep testStep;
 

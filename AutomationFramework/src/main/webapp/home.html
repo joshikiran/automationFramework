@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body ng-app="afApp" ng-controller="homeController">
+  <label>TestCase Name</label>
+  <input ng-model="testCase.testCaseName">
+  
+   <label>TestCase Description</label>
+  <input ng-model="testCase.testCaseDescription">
+  <div ng-repeat="i in testCase.testSteps track by $index">
+
+    <my-dir methods="methods" index="{{$index}}" push-step-details="pushStepDetails(stepDetails,$index)" test-case="testCase"></my-dir>
+  
+  </div>
+  <!--<button ng-click="addMore()">Add</button>-->
+  <select ng-model="option" ng-change="addMore(option)">
+    <option ng-repeat="opt in options" value={{opt}}>{{opt}}</option>
+  </select>
+  
+  <button ng-click="saveTestCase()">Save</button>
+</body>
+</html>
