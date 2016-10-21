@@ -1,0 +1,173 @@
+body {
+    background-color: #f3f3f3;
+    margin: 0;
+    bottom: 0;
+}
+
+#bodyContainer {
+    background-color: transparent;
+    float: right;
+    top: 0;
+    margin-top: 0;
+    height: calc(100% - 40px);
+    right: 0;
+    margin-right: 0;
+    margin-top: 35px;
+    position: absolute;
+    width: calc(100% - 0px);
+    z-index: -1000;
+}
+
+#header {
+    background-color: #fff;
+    margin-top: 0;
+    height: 40px;
+    border-bottom: 1px solid #eaeaea;
+    color: #333333;
+    z-index: 1050;
+    font-family: 'Source Sans Pro';
+    line-height: 22px;
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,.2),0 -3px 0px 0 rgba(0,0,0,.14),0 2px 0px -1px rgba(0,0,0,.12);
+}
+
+#headerLogo {
+    background-image: url(../assets/images/ICICI-Logo.jpg);
+    background-repeat: no-repeat;
+    width: 160px;/* 98px; */
+    height: 30px;/* 25px; */
+    /* background-color: #ccc;  */
+    display: inline-block;
+    margin: -3px auto;
+    background-size: 154px 34px;/* 90px 28px; */
+}
+
+#headerContent > div {
+    display: inline-block;
+}
+
+#appTitle {
+    height: 21px;
+    /* background-color: #ccc; */
+    padding-left: 10px;
+    border-left: 1px solid #ECECEC;
+    font-weight: bold;
+        padding-top: 5px;
+}
+
+
+#hamburgerItem {
+    font-size: 12px;
+    padding: 10px;
+}
+
+#userDetails {
+}
+
+    #userDetails:hover {
+        background-color: #f3f3f3;
+    }
+
+#userIcon {
+    width: 25px;
+    height: 16px;
+    background: url(../assets/images/User.png);
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    background-position-y: center;
+    background-position-x: center;
+    background-color: transparent;
+    float: left;
+    top: 0px;
+}
+
+#userDropdown {
+    height: 30px;
+    line-height: 32px;
+    width: 100px;
+    background-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#appName {
+    font-size: 14px;
+    padding: 8px;
+    font-family: "Source Sans Pro";
+    /*margin-left: 120px;*/
+}
+
+#ViewContainer {
+    /*background-color: #f3f3f3;*/
+    float: right;
+    top: 0;
+    margin-top: 0;
+    height: calc(100% - 0px);
+    right: 0;
+    margin-right: 0;
+    position: absolute;
+    width: calc(100% - 170px);
+    z-index: -1000;
+    overflow-y: scroll;
+}
+
+#viewContent {
+    height: calc(100% - 5px);
+    margin-top: 5px;
+   /*  padding: 20px; */
+    position: inherit;
+    width: 100%;
+    background-color: #FFF;
+}
+
+#verticalNav {
+    width: 170px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: calc(100% - 0px);
+    overflow-y:auto;
+     background-color: #15558e; /* #398C68; */ 
+    float: left;
+    margin-bottom: 0;
+    padding-top: 20px;
+    -webkit-box-shadow: 2px 1px 1px -2px rgba(153, 153, 153, 1);
+    -moz-box-shadow: 2px 1px 1px -2px rgba(153, 153, 153, 1);
+    box-shadow: 2px 1px 1px -2px rgba(153, 153, 153, 1);
+}
+
+    #verticalNav a {
+        text-decoration: none;
+    }
+
+        #verticalNav a:hover {
+        }
+
+        #verticalNav a li {
+            list-style-type: none;
+            width: 100%;
+            font-family: 'Source Sans Pro';
+            font-size: 12px;
+            color: #ffffff;
+            line-height: 36px;
+            height: 36px;
+        }
+
+    #verticalNav li:hover {
+        background-color: #1c609c;/* #5DAB89; */
+        cursor: pointer;
+    }
+
+    #verticalNav li span {
+        color: #ffffff;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        line-height: 28px;
+        font-size: 12px;
+        top: 2px;
+    }
+
+.menu-active {
+    background-color: #053c6d;/*  #146D48; */ 
+}

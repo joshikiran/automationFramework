@@ -21,25 +21,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	DataSource dataSource;
-	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// TODO Auto-generated method stub
 	
-		http.httpBasic().and().authorizeRequests().antMatchers("/css/**", "/js/**", "/default/*").permitAll().
+		http.httpBasic().and().authorizeRequests().antMatchers("/index.html", "/home.html", "/login.html",
+				"/assets/**", "/fonts/**", "index.html#/login", "/application.wadl",
+				"/", "/css/**", "/js/**", "/default/*").permitAll().
 		antMatchers("/admin/**").hasRole("ADMIN")
-		.antMatchers("/user/**").hasRole("USER").and()
+		.antMatchers("/user/**").hasRole("USER")
+		.anyRequest().authenticated()
+				.and()
 		.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
 		.csrf().csrfTokenRepository(csrfTokenRepository()).and()
-		.logout().logoutSuccessUrl("/login");
+		.logout().logoutUrl("/logout").logoutSuccessUrl("/#/login");
 	}
 	
 	@Autowired
 	protected void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
 		
 		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder())
-		.usersByUsernameQuery("select username, password,enabled from af_users where upper(username)=upper(?)")
-		.authoritiesByUsernameQuery("select username, role from af_user_roles where upper(username)=upper(?)");
+		.usersByUsernameQuery("select username, password,enabled from af_users where username=?")
+		.authoritiesByUsernameQuery("select username, role from af_user_roles where username=?");
 
 	}
 	

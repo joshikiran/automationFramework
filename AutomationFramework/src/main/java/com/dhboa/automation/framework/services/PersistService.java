@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,7 @@ public class PersistService extends AutowiredUtilObjects{
 	private final String SUCCESS_STATUS = "SUCCESS";
 	private final String FAILED_STATUS = "FAILED";
 	
+	
 	/**
 	 * @param object
 	 * @param testSuiteId
@@ -39,10 +41,10 @@ public class PersistService extends AutowiredUtilObjects{
 	 * @param testCaseId
 	 */
 	public void saveTestObjects(TestSuiteObj object, String testSuiteId, String projectCode, String testCaseId){
-
+		
 		String methodName = "saveTestObjects";
 		List<TestSuite> testSuites=null;
-		User user = getLoggedInUser();
+		User user = commonUtil.getLoggedInUser();;
 		Project project = projRep.findOne(projectCode);
 		
 		alServ.log("INFO", logger, className, methodName, IN_PROGRESS_STATUS,
@@ -210,14 +212,6 @@ public class PersistService extends AutowiredUtilObjects{
 
 	}
 
-
-	/**
-	 * @return
-	 */
-	public User getLoggedInUser(){
-		String user = SecurityContextHolder.getContext().getAuthentication().getName();
-		return userRep.findOne(user);
-	}
 	
 
 public static class TestSuiteObj{
@@ -254,4 +248,5 @@ public static class TestSuiteObj{
 		}
 		
 	}
+
 }

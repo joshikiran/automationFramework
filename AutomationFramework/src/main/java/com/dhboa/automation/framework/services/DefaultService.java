@@ -33,9 +33,9 @@ public class DefaultService extends AutowiredUtilObjects {
 	
 	String currentClass = getClass().getCanonicalName();
 	
-	private final String IN_PROGRESS_STATUS = "INPROGRESS";
-	private final String SUCCESS_STATUS = "SUCCESS";
-	private final String FAILED_STATUS = "FAILED";
+	private static final String IN_PROGRESS_STATUS = "INPROGRESS";
+	private static final String SUCCESS_STATUS = "SUCCESS";
+	private static final String FAILED_STATUS = "FAILED";
 	Class<?> commonsClass = null;
 
 	/**
@@ -611,6 +611,10 @@ public class DefaultService extends AutowiredUtilObjects {
 		{
 		e.printStackTrace();
 		}
-	}	
+	}
+	
+	public void addBatch(){
+		
+	}
 	
 }

@@ -13,8 +13,6 @@ afApp.directive("myDir", function() {
       $scope.returnHTML = function(value) {
         return $sce.trustAsHtml(value);
       }
-
-
     },
     link: function(scope, element, attrs) {debugger
       

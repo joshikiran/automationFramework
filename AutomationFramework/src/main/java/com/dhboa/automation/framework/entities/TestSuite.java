@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.dhboa.automation.framework.cloning.CloneService.Parameters;
 import com.dhboa.automation.framework.components.AbstractEntity;
 
 @Entity
@@ -104,5 +105,9 @@ public class TestSuite extends AbstractEntity {
 	public void setVariables(List<Variable> variables) {
 		this.variables = variables;
 	}	
+	
+	public void cloneObject(Parameters param){
+		System.out.println("called");
+	}
 	
 }
