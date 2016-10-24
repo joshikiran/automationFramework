@@ -14,7 +14,7 @@ afApp.directive("myDir", function() {
         return $sce.trustAsHtml(value);
       }
     },
-    link: function(scope, element, attrs) {debugger
+    link: function(scope, element, attrs) {
       
       
 scope.getParams = function(method) {

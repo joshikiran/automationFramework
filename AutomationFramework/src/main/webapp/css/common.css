@@ -1,0 +1,308 @@
+.no-min-width {
+    min-width:auto !important;
+}
+.border-dashed {
+    border-bottom: 1px solid #ccc;
+    border-top: 1px dashed #ccc;
+}
+
+.engrave {
+    background-color: #fff;
+    box-shadow: inset 0px 0px 7px -3px #777;
+}
+
+.transparent {
+    background-color: transparent !important;
+}
+
+.border-right {
+    border-right: 1px solid #eaeaea;
+}
+
+.border-left {
+    border-left: 1px solid #eaeaea;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #eaeaea;
+}
+
+.no-border {
+    border: 0px !important;
+}
+
+.no-shadow {
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+}
+
+.no-right-border {
+    border-right: 0px !important;
+}
+
+.no-left-border {
+    border-left: 0px !important;
+}
+
+.text-dark {
+    color: #333 !important;
+}
+
+.no-outline {
+    outline: none !important;
+}
+
+.no-margin {
+    margin: 0 !important;
+}
+
+.no-margin-bottom {
+    margin-bottom: 0 !important;
+}
+
+.margin-top-sm {
+    margin-top: 5px;
+}
+
+.margin-top-md {
+    margin-top: 10px;
+}
+
+.margin-top-lg {
+    margin-top: 15px;
+}
+
+.margin-sm {
+    margin: 5px;
+}
+
+.margin-md {
+    margin: 10px;
+}
+
+.margin-lg {
+    margin: 15px;
+}
+
+.clear-bottom {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.clear-top {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.clear-left {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.clear-right {
+    margin-right: 0;
+    padding-right: 0;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
+.padding-sm {
+    padding: 5px;
+}
+
+.padding-md {
+    padding: 10px;
+}
+
+.padding-lg {
+    padding: 15px;
+}
+
+.padding-btm-sm {
+    padding-bottom: 5px;
+}
+
+.padding-btm-md {
+    padding-bottom: 10px;
+}
+
+.padding-btm-lg {
+    padding-bottom: 15px;
+}
+
+.padding-left-md {
+    padding-left: 10px !important;
+}
+
+.padding-left-lg {
+    padding-left: 15px !important;
+}
+
+.padding-left-sm {
+    padding-left: 5px !important;
+}
+
+.padding-top-md {
+    padding-top: 10px !important;
+}
+
+.padding-top-lg {
+    padding-top: 15px !important;
+}
+
+.padding-top-sm {
+    padding-top: 5px !important;
+}
+
+.font-small {
+    font-size: 12px !important;
+}
+
+.app-font {
+    font-family: "Source Sans Pro" !important;
+}
+
+.font-md {
+    font-size: 14px !important;
+}
+
+.font-lg {
+    font-size: 16px !important;
+}
+
+.text-strong {
+    font-weight: bold !important;
+}
+
+.one-fourth-width {
+    width: 25% !important;
+}
+
+.half-width {
+    width: 50% !important;
+}
+
+.full-width {
+    width: 100% !important;
+}
+
+.text-left {
+    text-align: left !important;
+}
+
+.text-error {
+    color: #C33535 !important;
+}
+
+.text-success {
+    color: black !important;
+}
+
+.text-bold {
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke: 0.00px !important;
+    font-weight: 600;
+    color: #676767;
+}
+
+.ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-wrap: normal;
+    white-space: nowrap;
+}
+
+.borderize {
+    border: 1px solid #eaeaea !important;
+}
+
+.pointer {
+    cursor: pointer !important;
+}
+
+.caret-reverse {
+    border-top: 0px dashed !important;
+    border-bottom: 4px dashed;
+}
+
+.no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.content-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hover {
+}
+
+    .hover:hover {
+         background-color: #eaeaea  !important;
+         /* color: #F7F7F7 !important; */
+    }
+
+.default-hover {
+}
+
+    .default-hover:hover {
+        color: #333 !important;
+        border: 1px solid #eaeaea;
+        border-left: 0;
+        cursor: pointer !important;
+    }
+
+input[type=text], input[type=password] {
+    height: 30px;
+    font-family: "Source Sans Pro";
+    font-size: 12px;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke: 0.13px;
+    display: inherit;
+    line-height: 30px;
+}
+
+textarea {
+    font-family: "Source Sans Pro" !important;
+    font-size: 12px !important;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke: 0.13px;
+}
+
+
+.bleach-background {
+    background-color: #fff !important;
+}
+
+.default-cursor {
+    cursor: default !important;
+}
+
+.text-highlight {
+    color: #af2d0e;
+    font-weight: bold;
+    text-transform: none;
+}
+
+.error {
+    color: #993333 !important;
+    background: rgba(249, 219, 219, 0.09);
+}
+
+.field-error{
+    border: 1px solid rgba(195, 53, 53, 0.4) !important;
+    color: #C33535 !important;
+}
+.float-left{
+	float:left;
+}
+.float-right{
+	float:right;
+}

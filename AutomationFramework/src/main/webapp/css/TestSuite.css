@@ -1,0 +1,30 @@
+@CHARSET "ISO-8859-1";
+
+.suite-card{
+	    background-color: white;
+    height: 110px;
+    margin: 20px;
+    border: 1px solid #eaeaea;
+    border-left: 5px solid #9A9AE2;
+    padding: 15px;
+    width : 350px;
+  	 font-size : 14px;
+  
+}
+
+#selectToolBar{
+	background-color : white;
+	height : 50px;
+}
+.suite-card .suite-title{
+    padding-bottom: 4px;
+}
+.suite-card .suite-description{
+	font-size:13px; 
+	color: #565656;
+	height :calc(100% - 30px)
+}
+.suite-card .suite-buttons >a{
+	 color : #3F51B5;
+	 text-decoration : none;	
+}

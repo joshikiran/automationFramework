@@ -4,7 +4,12 @@
 <meta charset="ISO-8859-1">
 <title>Automation Framework</title>
     <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/dashboard.css" rel="stylesheet" />
+    <link href="css/base-style.css" rel="stylesheet" />
+    <link href="css/reset.css" rel="stylesheet" />
+    <link href="css/TestSuite.css" rel="stylesheet" />
+     <link href="css/common.css" rel="stylesheet" />
+     <link href="css/customization.css" rel="stylesheet" />
+     <link href="css/default.css" rel="stylesheet" />
 
 	<script src="js/angular.js"></script>
     <script src="js/angular-route.js"></script>
@@ -18,38 +23,30 @@
 </head>
 
 <body>
-<div ng-controller="loginController">
-    <div id="header" ng-show="authenticated">
-        <div id="headerContent">
+
+     <div ng-controller="loginController" id="bodyContainer">
+         <div id="header" ng-show="authenticated">
+    </div>
+        <ul id="verticalNav" ng-show="authenticated">
+        <!--        <div id="headerContent">
             <div id="appName">
                 <div id="headerLogo" class="pull-left"></div>
                 <label class="pull-left" id="appTitle">Service Registry and Monitoring</label>
             </div>
-            <div id="userDetails" class="pull-right">
-                <div class="dropdown pull-right">
-                    <button class="btn btn-primary dropdown-toggle transparent padding-sm no-border text-dark no-outline"
-                            type="button" data-toggle="dropdown" style="height: 40px;">
-                        <div id="userIcon"></div>{{userId}}
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu ">
-                        <li><a href="#changePass">Change Password</a></li>
-                        <li ng-click="logout()"><a href="#">Logout</a></li>
-                    </ul>
-                </div>
-            </div>
+        </div> --> 
+        <div id ="appName">
+        <label>Web Tester</label>
+        	
         </div>
-    </div>
- </div>
-     <div id="bodyContainer">
-        <ul id="verticalNav" ng-show="authenticated">
+        <div id =menuItems>
             <a href="#{{link.href}}" ng-repeat="link in menuItems" ng-show="link.isValid">
-                <li id="{{link.id}}" ng-click="highlightRow(link.href);" ng-class="{'menu-active': currentPath==link.href}" style="padding-left: 15px;">
-                    <span class="glyphicon " ng-class="link.styleClass"></span>
+                <li id="{{link.id}}" ng-click="highlightRow(link.href)" ng-class="{'menu-active': currentPath==link.href}" style="padding-left: 20px;">
+                   <!--  <span class="glyphicon " ng-class="link.styleClass"></span> -->
                     {{link.menuItemName}}
                 </li>
                 <!-- {'menu-active':$index == row} -->
             </a>
+       </div>  
         </ul>
         <div id="ViewContainer">
             <div id="viewContent">
@@ -57,5 +54,6 @@
             </div>
         </div>
     </div>
+   
 </body>
 </html>

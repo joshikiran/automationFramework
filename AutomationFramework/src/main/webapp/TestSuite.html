@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Test Suites</title>
+</head>
+<body ng-controller="homeController">
+<div id="selectToolBar" class="borderize">
+<select class="form-control borderize float-right" style="width: 140px;height:30px;margin:10px">
+<option>Service Registry</option>
+<option>Service Registry</option>
+</select>
+</div>
+
+<div ng-repeat="suite in testsuite">
+<div class="col-md-4 suite-card">
+<div class="suite-title"><b>{{suite.suiteName}}</b></div>
+<div class="suite-description">{{suite.suiteDescription}}</div>
+<div class="suite-buttons">
+<a href="" class="float-left">Edit</a>
+<a href="" class="float-right">Launch</a>
+
+</div>
+</div>
+</div>
+
+</body>
+</html>

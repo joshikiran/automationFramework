@@ -1,6 +1,6 @@
 afApp.controller("homeController",["$scope", "$http", function($scope, $http) {
 
-	$http.get("default/getMethods").success(function(response){debugger
+	$http.get("default/getMethods").success(function(response){
 		$scope.methods = response;
 	}).error(function(){
 		
@@ -16,7 +16,7 @@ afApp.controller("homeController",["$scope", "$http", function($scope, $http) {
   }
   $scope.getNumber($scope.size); 
   
-  $scope.addMore = function(opt) {debugger;
+  $scope.addMore = function(opt) {
    // $scope.size = $scope.size + parseInt(opt);
     //$scope.testCase.testSteps.splice($scope.size,opt) 
    // abc = new Array(5);

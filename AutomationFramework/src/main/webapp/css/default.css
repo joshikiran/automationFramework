@@ -1,0 +1,106 @@
+body{
+    background-color:#fff;
+}
+* {
+    border-radius: 0px !important;
+    font-family:"Source Sans Pro";
+}
+
+#ViewContainer::-webkit-scrollbar {
+    width: 0.4em;
+}
+
+#ViewContainer::-webkit-scrollbar-track {
+    background-color: #fff;
+    position: absolute;
+}
+
+#ViewContainer::-webkit-scrollbar-thumb {
+    background-color: #8c939a;
+    border-radius: 1000px;
+}
+
+::-webkit-input-placeholder {
+    font-size: 1em;
+    font-style: italic;
+}
+
+::-moz-placeholder {
+    font-size: 1em;
+    font-style: italic;
+}
+
+/* firefox 19+ */
+:-ms-input-placeholder {
+    font-size: 1em;
+    font-style: italic;
+}
+
+/* ie */
+input:-moz-placeholder {
+    font-size: 1em;
+    font-style: italic;
+}
+
+*::selection {
+    background: #C5C5C5; /* WebKit/Blink Browsers */
+    color: #444444;
+}
+
+*::-moz-selection {
+    background: #C5C5C5; /* Gecko Browsers */
+    color: #444444;
+}
+
+.input-field-item {
+    width: 100%;
+    height: 35px;
+    border: 1px solid transparent;
+    padding: 4px 0px;
+    outline: none;
+    border-left: 0;
+}
+
+.input-group-addon {
+    background-color: transparent !important;
+    border: 1px solid transparent;
+    color: #b0b2b6;
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url(../fonts/source-sans-pro/SourceSansPro-Regular.otf); /* IE9 Compat Modes */
+    src: url(../fonts/source-sans-pro/SourceSansPro-Regular.eot) format('embedded-opentype'), /* IE6-IE8 */
+    url(../fonts/source-sans-pro/SourceSansPro-Regular.woff2) format('woff2'), /* Super Modern Browsers */
+    url(../fonts/source-sans-pro/SourceSansPro-Regular.woff) format('woff'), /* Pretty Modern Browsers */
+    url(../fonts/source-sans-pro/SourceSansPro-Regular.ttf) format('truetype'), /* Safari, Android, iOS */
+    url(../fonts/source-sans-pro/SourceSansPro-Regular.svg) format('svg'); /* Legacy iOS */    
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url(../fonts/roboto/Roboto-Regular.ttf) format('truetype'); /* Safari, Android, iOS */
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    margin-left: 23px;
+    margin-right: -24px;
+    border-radius: 14px !important;
+    border: 2px solid #585858;
+    border-right-color: transparent;
+    animation: rotation 0.8s infinite linear;
+    float: left;
+    margin-top: -1px;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

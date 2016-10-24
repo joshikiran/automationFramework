@@ -1,7 +1,6 @@
 afApp.controller("loginController", ["$scope", "$rootScope", "$http", "$location", function($scope, $rootScope, $http, $location){
 	
 $scope.authenticate = function(){
-
 		$rootScope.authenticated=false;
 		$rootScope.isUser=false;
 		$rootScope.isAdmin=false;
@@ -12,7 +11,7 @@ $scope.authenticate = function(){
 			headers={};
 		  $http.get("usermanagement/login",{
 			  headers:headers
-		  }).success(function (data) {debugger;
+		  }).success(function (data) {
 		  	if(data && data!="")
 		  	{
 		  		 user = {"userName" : "vysh",
@@ -38,6 +37,10 @@ $scope.authenticate = function(){
 	    	  
 		  })
 		}
-	$scope.authenticate();
+
+		
+		$scope.authenticate();
+	
+	
 	//$http.post("logout");
 }])

@@ -19,10 +19,10 @@ public class ScriptGenerationUtils {
 	private static List<String> testStep = new ArrayList<>();
 	private static List<String> testStepDetails = new ArrayList<>();
 
-	private static String testSuiteId = "1";
+	private static String testSuiteId = "3";
 	private static String testCaseId = null;
 	private static String testSuiteDescription = "Default Test Suite";
-	private static String projectCode = "TnE";
+	private static String projectCode = "Clone";
 	private static String userName = "vysh";
 	private static String testCaseOrder = "1";
 
