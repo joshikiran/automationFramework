@@ -13,18 +13,32 @@
 }
 
 #selectToolBar{
-	background-color : white;
+	background-color : #F7F7F7;
 	height : 50px;
 }
-.suite-card .suite-title{
-    padding-bottom: 4px;
-}
+
 .suite-card .suite-description{
 	font-size:13px; 
-	color: #565656;
+	color: #717273;
 	height :calc(100% - 30px)
 }
 .suite-card .suite-buttons >a{
 	 color : #3F51B5;
 	 text-decoration : none;	
+}
+.bread-crumbs{
+	    height: 40px;
+    padding: 8px;
+    font-size: 13px;
+        line-height: 24px;
+        background-color : #EDEDED;
+}
+.menu-bar{
+	height : 40px;
+	background-color : #F7F7F7;
+	line-height : 38px;
+}
+.execution-group-container{
+	width : 220px;
+	display : -webkit-inline-box;
 }

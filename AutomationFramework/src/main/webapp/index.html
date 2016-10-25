@@ -10,8 +10,11 @@
      <link href="css/common.css" rel="stylesheet" />
      <link href="css/customization.css" rel="stylesheet" />
      <link href="css/default.css" rel="stylesheet" />
+     <link href="css/layout.css" rel="stylesheet" />
 
 	<script src="js/angular.js"></script>
+	<script src="js/lib/jquery-2.1.4.min.js"></script>
+	<script src="js/lib/bootstrap.js"></script>
     <script src="js/angular-route.js"></script>
     <script src="js/defaultController.js"></script>
     <script src="js/loginController.js"></script>
@@ -28,12 +31,7 @@
          <div id="header" ng-show="authenticated">
     </div>
         <ul id="verticalNav" ng-show="authenticated">
-        <!--        <div id="headerContent">
-            <div id="appName">
-                <div id="headerLogo" class="pull-left"></div>
-                <label class="pull-left" id="appTitle">Service Registry and Monitoring</label>
-            </div>
-        </div> --> 
+ 
         <div id ="appName">
         <label>Web Tester</label>
         	
@@ -44,9 +42,19 @@
                    <!--  <span class="glyphicon " ng-class="link.styleClass"></span> -->
                     {{link.menuItemName}}
                 </li>
-                <!-- {'menu-active':$index == row} -->
             </a>
-       </div>  
+       </div> 
+       <div id="quickLinks">
+       <label>QUICK LINKS</label>
+       <a href="#{{link.href}}" ng-repeat="link in quickLinks" ng-show="link.isValid">
+                <li id="{{link.id}}" ng-click="highlightRow(link.href)" ng-class="{'menu-active': currentPath==link.href}" style="padding-left: 20px;">
+       {{link.menuItemName}}
+                </li>
+            </a>
+           
+       </div>
+ <a href="#settings" ng-show="true"><li  ng-click="highlightRow(settings)" ng-class="{'menu-active': currentPath==settings}">
+        <span class="glyphicon glyphicon-cog"></span>SETTINGS</li></a> 
         </ul>
         <div id="ViewContainer">
             <div id="viewContent">

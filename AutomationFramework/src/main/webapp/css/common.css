@@ -191,16 +191,21 @@
 .text-left {
     text-align: left !important;
 }
-
+.text-right {
+    text-align: right !important;
+}
+.text-center{
+	text-align : center;
+}
 .text-error {
     color: #C33535 !important;
 }
 
 .text-success {
-    color: black !important;
+    color: green !important;
 }
 
-.text-bold {
+.-bold {
     -webkit-font-smoothing: antialiased;
     -webkit-text-stroke: 0.00px !important;
     font-weight: 600;
@@ -299,10 +304,4 @@ textarea {
 .field-error{
     border: 1px solid rgba(195, 53, 53, 0.4) !important;
     color: #C33535 !important;
-}
-.float-left{
-	float:left;
-}
-.float-right{
-	float:right;
 }

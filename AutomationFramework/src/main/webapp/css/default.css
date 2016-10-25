@@ -1,5 +1,6 @@
 body{
     background-color:#fff;
+    font-family: "Source Sans Pro";
 }
 * {
     border-radius: 0px !important;
@@ -19,7 +20,19 @@ body{
     background-color: #8c939a;
     border-radius: 1000px;
 }
+#verticalNav::-webkit-scrollbar {
+    width: 0.4em;
+}
 
+#verticalNav::-webkit-scrollbar-track {
+    background-color: #fff;
+    position: absolute;
+}
+
+#verticalNav::-webkit-scrollbar-thumb {
+    background-color: #8c939a;
+    border-radius: 1000px;
+}
 ::-webkit-input-placeholder {
     font-size: 1em;
     font-style: italic;

@@ -7,6 +7,7 @@ body {
     background-color: #f3f3f3;
     margin: 0;
     bottom: 0;
+  
 }
 
 #bodyContainer {
@@ -23,47 +24,16 @@ body {
 }
 
 #header {
-    background-color: #fff;
+    background-color: #F7F7F7;
     margin-top: 0;
     height: 50px;
     border-bottom: 1px solid #eaeaea;
     color: #333333;
     z-index: 1050;
-    font-family: 'Source Sans Pro';
     line-height: 22px;
     box-shadow: 0 1px 4px 0 rgba(0,0,0,.2),0 -3px 0px 0 rgba(0,0,0,.14),0 2px 0px -1px rgba(0,0,0,.12);
     width: calc(100% - 160px);
     float: right;
-}
-
-#headerLogo {
-    background-image: url(../assets/images/ICICI-Logo.jpg);
-    background-repeat: no-repeat;
-    width: 160px;/* 98px; */
-    height: 30px;/* 25px; */
-    /* background-color: #ccc;  */
-    display: inline-block;
-    margin: -3px auto;
-    background-size: 154px 34px;/* 90px 28px; */
-}
-
-#headerContent > div {
-    display: inline-block;
-}
-
-#appTitle {
- /*    height: 21px;
-    background-color: #ccc;
-    padding-left: 10px;
-    border-left: 1px solid #ECECEC;
-    font-weight: bold;
-        padding-top: 5px; */
-    height : 50px;
-    width : calc(100% - 20px);
-    font-size: 20px;
-/*     padding: 12px;
- */    font-family: "Source Sans Pro";
-   color : #F0EEF1;
 }
 
 
@@ -105,7 +75,6 @@ body {
  height : 50px;
     font-size: 20px;
     padding-top: 14px;
-    font-family: "Source Sans Pro";
    color : #F0EEF1;
    width : 140px;
    margin:auto;
@@ -190,7 +159,15 @@ body {
  #menuItems {
 	margin-top : 20px;
 }
- 
+ #quickLinks{
+ margin-top : 330px;
+ font-family: 'Source Sans Pro';
+ }
+ #quickLinks label{
+ color : #ffffff;
+ padding: 15px;
+     font-size: 14px;
+ }
  #loginContainer {
     width: 387px;
     height: 363px;

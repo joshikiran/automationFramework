@@ -25,16 +25,25 @@ $scope.authenticate = function(){
 	    		  else if(value.role=="ROLE_USER")
 	    			  $rootScope.isUser=true;
 		  	})
-		  	//$location.url("/home")
+		if($location.path()=='/login')
+			$location.url("/suite");
+			else
+		  	$location.path();
 		  	}
 	    	  else
 	    	  { 
 	    		$rootScope.authenticated=false;
 	    		$rootScope.isUser=false;
 	    		$rootScope.isAdmin=false;
-	    	  
+	    		$location.url("/login")
 	    	  }
 	    	  
+		  }).error(function(data){
+			  $rootScope.authenticated=false;
+	    		$rootScope.isUser=false;
+	    		$rootScope.isAdmin=false;
+	    		$location.url("/login")
+
 		  })
 		}
 

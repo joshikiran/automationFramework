@@ -2,15 +2,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Test Suites</title>
+<title>Insert title here</title>
 </head>
 <body ng-controller="homeController">
-<div id="selectToolBar" class="borderize">
-<select class="form-control borderize pull-right font-small" style="width: 140px;height:30px;margin:10px">
-<option>Service Registry</option>
-<option>Service Registry</option>
-</select>
-</div>
 <div class ="bread-crumbs padding-left-lg">
 <span ng-repeat="crumb in crumbs">
 <a ng-if="!($last)" href ="{{crumb.href}}">{{crumb.name}}</a>
@@ -30,18 +24,22 @@
 </div>
 
 </div>
-</div> 
-<div ng-repeat="suite in testsuite" >
-<div class="col-md-4 suite-card">
-<div class="padding-btm-sm text-strong">{{suite.suiteName}}</div>
-<div class="suite-description">{{suite.suiteDescription}}</div>
-<div class="suite-buttons">
-<a href="" class="pull-left">Edit</a>
-<a href="" class="pull-right">Launch</a>
-
 </div>
-</div>
-</div>
- 
+<div>
+<table class="borderize margin-lg" style="width:95%">
+<tbody >
+<tr class="data-item font-md" ng-repeat="testCase in testCases">
+<td style="width:2%" class="padding-left-lg"><span class="glyphicon glyphicon-play-circle font-md"></span></td>
+<td style="width:5%">{{testCase.testCaseName}}</td>
+<td style="width:25%">{{testCase.testCaseDescription}}</td>
+<td style="width:2%" class="text-right"><button class="btn btn-link transparent no-outline" dta-toggle="dropdown"><span class="glyphicon glyphicon-option-vertical font-md"></span></button>
+<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a href="#">Action</a></li>
+    <li><a href="#">Another action</a></li>
+    <li><a href="#">Something else here</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#">Separated link</a></li>
+  </ul></td>
+</tr></tbody></table></div>
 </body>
 </html>

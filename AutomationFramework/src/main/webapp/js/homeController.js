@@ -33,4 +33,10 @@ postObj={
   		console.log(data);
   	})
 }
+$scope.crumbs = [{ "name" :"Suite Name",
+	"href" : ""}, 
+	{"name" : "Case Name",
+		"href" : ""}
+	
+]
 }])

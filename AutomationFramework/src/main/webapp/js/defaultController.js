@@ -13,12 +13,31 @@ afApp.config(function($routeProvider,$httpProvider){
 	.when("/suite",{
 		templateUrl:"TestSuite.html",
 		controller:"homeController"
+	}).when("/cases",{
+		templateUrl:"TestCase.html",
+		controller:"homeController"
 	}).otherwise("/")
 })
 
-afApp.run(function($rootScope,$http){
+afApp.run(function($rootScope,$http,$location){
 
-	testCase=[{ 
+	$rootScope.testCases=[{ 
+			"active" : true,
+			"template" : true,
+			"order" : 1,
+			"testCaseDescription" : "bla bla",
+			"testCaseName" : "testSuite",
+			"testCaseReference" : "df",
+		},
+		{ 
+			"active" : true,
+			"template" : true,
+			"order" : 1,
+			"testCaseDescription" : "bla bla",
+			"testCaseName" : "testSuite",
+			"testCaseReference" : "df",
+		},
+		{ 
 			"active" : true,
 			"template" : true,
 			"order" : 1,
@@ -32,7 +51,7 @@ afApp.run(function($rootScope,$http){
 		"suiteDescription" : "bla bla bla bla bla",
 		"suiteName" : "New testSuite",
 		"testSuiteReference" : "",
-		"testCases" : testCase
+		"testCases" : $rootScope.testCases
 	},
 	{ 
 		"id" : "0aa3ccb2-03ff-45aa-8ce1-41c837912975",
@@ -40,7 +59,7 @@ afApp.run(function($rootScope,$http){
 		"suiteDescription" : "bla bla bla bla bla",
 		"suiteName" : "New testSuite2",
 		"testSuiteReference" : "",
-		"testCases" : testCase
+		
 	},
 	{ 
 		"id" : "0aa3ccb2-03ff-45aa-8ce1-41c837912975",
@@ -48,7 +67,7 @@ afApp.run(function($rootScope,$http){
 		"suiteDescription" : "bla bla bla bla bla",
 		"suiteName" : "New testSuite2",
 		"testSuiteReference" : "",
-		"testCases" : testCase
+		
 	},
 	{ 
 		"id" : "0aa3ccb2-03ff-45aa-8ce1-41c837912975",
@@ -56,7 +75,7 @@ afApp.run(function($rootScope,$http){
 		"suiteDescription" : "bla bla bla bla bla",
 		"suiteName" : "New testSuite3",
 		"testSuiteReference" : "",
-		"testCases" : testCase
+		
 	}];
 	
 
@@ -89,6 +108,25 @@ afApp.run(function($rootScope,$http){
 	                    	"id" : "executor",
 	                    		isValid : true		
 	                    }]
+	$rootScope.quickLinks = [{
+    	"menuItemName" : "Create Test Suite",
+    	"href" : "createSuite",
+    	"id" : "Suite",
+    	isValid : true	
+    },
+    {
+    	"menuItemName" : "Create Test Case",
+    	"href" : "createCase",
+    	"id" : "Cases",
+    		isValid : true		
+    },
+    {
+    	"menuItemName" : "Create Test Step",
+    	"href" : "createStep",
+    	"id" : "executor",
+    		isValid : true		
+    }];
+	 $rootScope.currentPath = $location.path().substring(1);                  
 	$rootScope.highlightRow = function(link){
 		$rootScope.currentPath = link;
 	}
