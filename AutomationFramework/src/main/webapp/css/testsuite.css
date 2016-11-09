@@ -7,9 +7,9 @@
     border: 1px solid #eaeaea;
     border-left: 5px solid #9A9AE2;
     padding: 15px;
-    width : 350px;
+    min-width : 30%;
   	 font-size : 14px;
-  
+      max-width: 30%;
 }
 
 #selectToolBar{
@@ -20,8 +20,9 @@
 .suite-card .suite-description{
 	font-size:13px; 
 	color: #717273;
-	height :calc(100% - 30px)
+	    height: calc(100% - 37px);
 }
+
 .suite-card .suite-buttons >a{
 	 color : #3F51B5;
 	 text-decoration : none;	
@@ -36,9 +37,5 @@
 .menu-bar{
 	height : 40px;
 	background-color : #F7F7F7;
-	line-height : 38px;
-}
-.execution-group-container{
-	width : 220px;
-	display : -webkit-inline-box;
+
 }

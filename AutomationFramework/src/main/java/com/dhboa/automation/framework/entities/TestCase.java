@@ -11,20 +11,24 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.dhboa.automation.framework.components.AbstractEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "af_test_case")
 public class TestCase extends AbstractEntity {
 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "test_suite_id", nullable = true, updatable = true, insertable = true)
 	private TestSuite testSuite;
 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "project_code", nullable = true, updatable = true, insertable = true)
 	private Project project;
 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "username", nullable = true, updatable = true, insertable = true)
 	private User user;
 
@@ -46,10 +50,12 @@ public class TestCase extends AbstractEntity {
 	@Column(name = "test_case_reference")
 	private String testCaseReference;
 	
-	@OneToMany
-	private List<Variable> variables;
+	/*@OneToMany
+	@JsonIgnore
+	private List<Variable> variables;*/
 	
-	@OneToMany(mappedBy="testCase", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="testCase", fetch=FetchType.LAZY)
+	@JsonIgnore
 	private List<TestStep> testSteps;
 
 	public String getTestCaseReference() {
@@ -124,13 +130,13 @@ public class TestCase extends AbstractEntity {
 		this.order = order;
 	}
 
-	public List<Variable> getVariables() {
+/*	public List<Variable> getVariables() {
 		return variables;
 	}
 
 	public void setVariables(List<Variable> variables) {
 		this.variables = variables;
-	}
+	}*/
 
 	public List<TestStep> getTestSteps() {
 		return testSteps;

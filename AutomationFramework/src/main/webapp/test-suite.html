@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Test Suites</title>
-</head>
-<body ng-controller="homeController">
+<div ng-controller="homeController">
 <div id="selectToolBar" class="borderize">
 <select class="form-control borderize pull-right font-small" style="width: 140px;height:30px;margin:10px">
 <option>Service Registry</option>
@@ -19,29 +13,18 @@
 </span>
 </div>
  <div class="menu-bar borderize">
-<button class="btn transparent no-outline pull-left margin-top-sm">
+<button class="btn transparent no-outline pull-left">
 <span class="glyphicon glyphicon-plus text-success"></span> Create Suite</button>
-<div class="pull-right execution-group-container">
-<div class="border-left border-right" style="width:calc(100% - 70px)">
-<button class="btn btn-link transparent no-outline">Create Execution Batch</button>
-</div> 
-<div style="width:calc(100% - 150px)">
-<button class="btn transparent no-outline">Glyph</button>
+<div class="pull-right">
+<button class="btn btn-link transparent no-outline border-right border-left inline-block" >Create Execution Batch</button><button class="btn transparent no-outline inline-block">Glyph</button>
 </div>
-
 </div>
-</div> 
-<div ng-repeat="suite in testsuite" >
-<div class="col-md-4 suite-card">
+<div ng-repeat="suite in testsuite" class="suite-card inline-block">
 <div class="padding-btm-sm text-strong">{{suite.suiteName}}</div>
-<div class="suite-description">{{suite.suiteDescription}}</div>
+<div class="suite-description ellipsis">{{suite.suiteDescription}}</div>
 <div class="suite-buttons">
 <a href="" class="pull-left">Edit</a>
 <a href="" class="pull-right">Launch</a>
-
 </div>
 </div>
 </div>
- 
-</body>
-</html>

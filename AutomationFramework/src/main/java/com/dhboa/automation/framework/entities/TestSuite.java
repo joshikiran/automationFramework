@@ -36,7 +36,7 @@ public class TestSuite extends AbstractEntity {
 	@Column(name = "test_suite_reference")
 	private String testSuiteReference;
 
-	@OneToMany
+	@OneToMany(mappedBy="testSuite")
 	private List<Variable> variables;
 	
 	@OneToMany(mappedBy="testSuite")
@@ -105,9 +105,5 @@ public class TestSuite extends AbstractEntity {
 	public void setVariables(List<Variable> variables) {
 		this.variables = variables;
 	}	
-	
-	public void cloneObject(Parameters param){
-		System.out.println("called");
-	}
-	
+		
 }

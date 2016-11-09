@@ -44,8 +44,10 @@ public class DefaultController extends AutowiredUtilObjects {
 
 	
 	@RequestMapping(value="/default/getMethods")
-	public List<Method> getMethods(){
-		return mRep.findAll();
+	public List<Method> getMethods(@RequestParam(value="methodName")String methodName){
+		//return mRep.findAll();
+		List<Method> methods = mRep.findByMethodNameContaining(methodName);
+		return methods;
 	}
 	
 	@RequestMapping(value="default/save", method= RequestMethod.POST)
@@ -54,10 +56,10 @@ public class DefaultController extends AutowiredUtilObjects {
 		persistServ.saveTestObjects(object, testSuiteId, projectCode, testCaseId);		
 	}
 	
-	@RequestMapping(value="default/getTestCase")
-	public List<TestCase> getTestCase(){
-		return tcRep.findAll();
-	}
+//	@RequestMapping(value="default/getTestCase")
+//	public List<TestCase> getTestCase(){
+//		return tcRep.findAll();
+//	}
 	
 	@RequestMapping(value="/default/clone")
 	public void clonetemplate(@RequestParam(name="testCaseId" , required=false) String testCaseId,

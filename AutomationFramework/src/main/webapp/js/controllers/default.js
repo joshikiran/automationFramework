@@ -5,74 +5,71 @@ afApp.config(function($routeProvider,$httpProvider){
 	 $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 	$routeProvider.when("/login",{
 		templateUrl:"login.html",
-		controller:"loginController"
 	}).when("/home",{
 		templateUrl:"home.html",
-		controller:"homeController"
-	})
-	.when("/suite",{
-		templateUrl:"TestSuite.html",
-		controller:"homeController"
+	}).when("/suite",{
+		templateUrl:"test-suite.html",
 	}).when("/cases",{
-		templateUrl:"TestCase.html",
-		controller:"homeController"
+		templateUrl:"test-case.html",
+	}).when("/steps/:id",{
+		templateUrl:"test-step.html",
 	}).otherwise("/")
 })
 
 afApp.run(function($rootScope,$http,$location){
 
-	$rootScope.testCases=[{ 
+/*	$rootScope.testCases=[{ 
 			"active" : true,
 			"template" : true,
 			"order" : 1,
-			"testCaseDescription" : "bla bla",
-			"testCaseName" : "testSuite",
+			"testCaseDescription" : "Sample Description",
+			"testCaseName" : "Test Case Title 1",
 			"testCaseReference" : "df",
 		},
 		{ 
 			"active" : true,
 			"template" : true,
 			"order" : 1,
-			"testCaseDescription" : "bla bla",
-			"testCaseName" : "testSuite",
+			"testCaseDescription" : "Sample Description",
+			"testCaseName" : "Test Case Title 2",
 			"testCaseReference" : "df",
 		},
 		{ 
 			"active" : true,
 			"template" : true,
 			"order" : 1,
-			"testCaseDescription" : "bla bla",
-			"testCaseName" : "testSuite",
+			"testCaseDescription" : "Sample Description",
+			"testCaseName" : "Test Case Title 3",
 			"testCaseReference" : "df",
-		}]
+		}]*/
 	$rootScope.testsuite=[{ 
 		"id" : "0aa3ccb2-03ff-45aa-8ce1-41c837912975",
 		"active" : true,
-		"suiteDescription" : "bla bla bla bla bla",
-		"suiteName" : "New testSuite",
+		"suiteDescription" : "Sample Description",
+		"suiteName" : "New Test Suite",
 		"testSuiteReference" : "",
 		"testCases" : $rootScope.testCases
 	},
 	{ 
 		"id" : "0aa3ccb2-03ff-45aa-8ce1-41c837912975",
 		"active" : true,
-		"suiteDescription" : "bla bla bla bla bla",
-		"suiteName" : "New testSuite2",
+		"suiteDescription" : "Sample Description",
+		"suiteName" : "New Test Suite 2",
 		"testSuiteReference" : "",
 		
 	},
 	{ 
 		"id" : "0aa3ccb2-03ff-45aa-8ce1-41c837912975",
 		"active" : true,
-		"suiteDescription" : "bla bla bla bla bla",
-		"suiteName" : "New testSuite2",
+		"suiteDescription" : "Sample Description",
+		"suiteName" : "New Test Suite 3",
 		"testSuiteReference" : "",
 		
 	},
 	{ 
 		"id" : "0aa3ccb2-03ff-45aa-8ce1-41c837912975",
 		"active" : true,
-		"suiteDescription" : "bla bla bla bla bla",
+		"suiteDescription" : "Sample Description",
 		"suiteName" : "New testSuite3",
 		"testSuiteReference" : "",
 		
@@ -80,14 +77,7 @@ afApp.run(function($rootScope,$http,$location){
 	
 
 	
-	/*postObj={
-			testSuites : testsuite,
-		testCases :testCase
-	}*/
-	
-	/*$http.post("default/save?testSuiteId=729e5d1d-0f07-4388-85b4-8725a8f67ab4&projectCode=TnE",postObj).success(function(data){
-		console.log(data);
-	})*/
+
 	
 	$rootScope.menuItems = [
 	                    {

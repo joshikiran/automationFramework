@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.dhboa.automation.framework.components.AbstractEntity;
@@ -46,6 +47,7 @@ public class TestStep extends AbstractEntity{
 	private String testStepRef;
 
 	@OneToMany(mappedBy = "testStep" , fetch=FetchType.EAGER)
+	@OrderBy("order")
 	private List<StepDetails> stepDetails;
 	
 	public TestCase getTestCase() {

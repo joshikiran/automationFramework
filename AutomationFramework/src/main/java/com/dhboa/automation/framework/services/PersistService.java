@@ -1,5 +1,6 @@
 package com.dhboa.automation.framework.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -125,7 +126,7 @@ public class PersistService extends AutowiredUtilObjects{
 			testCase.setUser(user);
 			order = tcRep.findHighestOrderTestCaseInTestSuite(testSuite.getId(), project.getProjectCode(), user.getUserName());
 			if(order == null)
-				order = 0;
+				order = 1;
 			testCase.setOrder(order+1);
 			testCase.setTestSuite(testSuite);
 			tcRep.save(testCase); 
@@ -151,11 +152,11 @@ public class PersistService extends AutowiredUtilObjects{
 	 */
 	public void saveTestSteps(TestCase testCase, List<TestStep> testSteps, Project project, User user) {
 		String methodName = "saveTestSteps";
-		int order = 0;
+		Integer order = 1;
 		try{
 		for(TestStep testStep : testSteps){
 			order = testSteps.indexOf(testStep);
-			if(null != testStep.getId() || "".equalsIgnoreCase(testStep.getId()))
+			if(null == testStep.getId() || "".equalsIgnoreCase(testStep.getId()))
 			testStep.setId(UUID.randomUUID().toString());
 			testStep.setActive(true);
 			//testStep.setCreatedOn(new Date());
@@ -163,7 +164,10 @@ public class PersistService extends AutowiredUtilObjects{
 			testStep.setProject(project);
 			testStep.setUser(user);
 			testStep.setTestCase(testCase);
-			testStep.setOrder(order);
+			order = tsRep.findHighestOrderTestStepInTestCase(testCase.getId(), project.getProjectCode(), user.getUserName());
+			if(order == null)
+				order = 1;
+			testStep.setOrder(order+1);
 			if(testStep.getTestCaseName()==null || testStep.getTestCaseDescription()==null)
 			{
 				testStep.setTestCaseName(testCase.getTestCaseName());
@@ -171,7 +175,7 @@ public class PersistService extends AutowiredUtilObjects{
 			}
 			tsRep.save(testStep);
 			alServ.log("INFO", logger, className, methodName, SUCCESS_STATUS,
-					" TestStep "+order+" for "+testStep.getTestCaseName()+" saved successfully");	
+					" TestStep "+testStep.getOrder()+" for "+testStep.getTestCaseName()+" saved successfully");	
 			if(testStep.getStepDetails() != null){
 				List<StepDetails> stepDetails = testStep.getStepDetails();
 				saveStepDetails(testStep, stepDetails, user);

@@ -9,13 +9,17 @@ import javax.persistence.Table;
 import com.dhboa.automation.framework.components.AbstractEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * @author Vyshnavi Mudumby
+ *
+ */
 @Entity
 @Table(name = "af_method_params")
 public class MethodParams extends AbstractEntity {
 
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name = "method_name", nullable = false, updatable = true, insertable = true)
+	@JoinColumn(name = "method_id", nullable = false, updatable = true, insertable = true)
 	private Method method;
 
 	@Column(name = "param_name", length = 500)
@@ -26,6 +30,9 @@ public class MethodParams extends AbstractEntity {
 
 	@Column(name = "enabled")
 	private boolean isActive;
+	
+	@Column(name = "field_order")
+	private int order;
 
 	public Method getMethod() {
 		return method;
@@ -58,4 +65,13 @@ public class MethodParams extends AbstractEntity {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
+
+	public int getOrder() {
+		return order;
+	}
+
+	public void setOrder(int order) {
+		this.order = order;
+	}
+	
 }

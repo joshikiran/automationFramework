@@ -1,15 +1,18 @@
-afApp.directive("myDir", function() {
+afApp.directive("myDir", function($http,$routeParams) {
   return {
     restrict: 'E',
     scope: {
-      methods: "=",
       index: "@",
-      pushStepDetails: "&",
-      testCase: "=",
+      testSteps: "=",
     },
-    templateUrl: 'mytemplate.html',
+    templateUrl: 'my-template.html',
     controller: function($scope, $sce) {
 
+    	$http.get("default/getMethods?methodName=").success(function(response){
+    		$scope.methods = response;
+    	}).error(function(){
+    		
+    	})
       $scope.returnHTML = function(value) {
         return $sce.trustAsHtml(value);
       }
@@ -18,39 +21,50 @@ afApp.directive("myDir", function() {
       
       
 scope.getParams = function(method) {
-    	 stepDetails = [];
-    	 scope.testCase.testSteps[attrs.index]={
+    	 scope.stepDetails = [];
+    	/* scope.testCase.testSteps[attrs.index]={
     	 		stepDetails : stepDetails
-    	 		};
+    	 		};*/
         scope.fields = [];
         
         if(method==null)
         return scope.fields;
 
-        scope.testCase.testSteps[attrs.index].stepDetails[0]={
+       /* scope.testCase.testSteps[attrs.index].stepDetails[0]={
           fieldValue: method.methodName,
           testCaseName : scope.testCase.testCaseName,
           testCaseDescription : scope.testCase.testCaseDescription,
 
-        };
+        };*/
+        scope.stepDetails[0]={
+                fieldValue: method.methodName,
+//                testCaseName : scope.testCase.testCaseName,
+//                testCaseDescription : scope.testCase.testCaseDescription,
 
+              };
         params = method.params
         var numberOfParams = params.length;
         angular.forEach(params, function(val, idx) {
-  scope.testCase.testSteps[attrs.index].stepDetails.splice(parseInt(idx + 1), 0, {
+ /* scope.testCase.testSteps[attrs.index].stepDetails.splice(parseInt(idx + 1), 0, {
             paramName: val.paramName,
             paramDescription: val.paramDescription,
             testCaseName : scope.testCase.testCaseName,
             testCaseDescription : scope.testCase.testCaseDescription,
-          });
-
-        text = '<label>' + val.paramName + '</label><input ng-model="testCase.testSteps['+attrs.index+'].stepDetails[' + parseInt(idx + 1) + '].fieldValue" placeholder="' + val.paramDescription + '">';
+          });*/
+        	scope.stepDetails.push({
+            paramName: val.paramName,
+            paramDescription: val.paramDescription,
+//            testCaseName : scope.testCase.testCaseName,
+//            testCaseDescription : scope.testCase.testCaseDescription,
+          })
+        text = '<label>' + val.paramName + '</label><input ng-model="stepDetails[' + parseInt(idx + 1) + '].fieldValue" placeholder="' + val.paramDescription + '">';
           scope.fields.push(text);
           
           return scope.fields;
         })
       }
-      scope.remove = function() {
+
+  /*    scope.remove = function() {
         debugger
         scope.testCase.testSteps.splice(attrs.index, 1);
         scope.methodModel=undefined;
@@ -59,8 +73,20 @@ scope.getParams = function(method) {
       
       scope.add= function(){debugger
           scope.testCase.testSteps.splice(parseInt(attrs.index+1), 0, {stepDetails : []});
-        }
-   
+        }*/
+scope.saveTestStep= function(){debugger
+	testStep={}
+	testStep.stepDetails = scope.stepDetails
+	
+	postObj={
+	testSteps: [testStep]
+}
+
+$http.post("default/save?testSuiteId=1&projectCode=DefaultProject&testCaseId="+$routeParams.id,postObj).success(function(data){
+console.log(data);
+scope.testSteps.push(testStep);
+})
+ }
     }
   }
 })

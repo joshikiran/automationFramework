@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 
@@ -32,6 +33,7 @@ public class Method extends AbstractEntity {
 	private boolean isActive;
 
 	@OneToMany(mappedBy="method", fetch=FetchType.EAGER)
+	@OrderBy("order")
 	List<MethodParams> params;
 	
 	@JsonIgnore

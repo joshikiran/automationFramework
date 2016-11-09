@@ -1,0 +1,31 @@
+<div ng-controller="testCaseController">
+<div class ="bread-crumbs padding-left-lg">
+<span ng-repeat="crumb in crumbs">
+<a ng-if="!($last)" href ="{{crumb.href}}">{{crumb.name}}</a>
+<span ng-if="$last" >{{crumb.name}}</span>
+<span ng-if="!($last)"class="glyphicon glyphicon-menu-right"></span>
+</span>
+</div>
+ <div class="menu-bar borderize">
+<button class="btn transparent no-outline pull-left">
+<span class="glyphicon glyphicon-plus text-success"></span> Create Case</button>
+<div class="pull-right">
+<button class="btn btn-link transparent no-outline border-right border-left inline-block" >Create Execution Batch</button><button class="btn transparent no-outline inline-block">Glyph</button>
+</div>
+</div>
+<div>
+<table class="borderize margin-lg" style="width:95%">
+<tbody >
+<tr class="data-item font-md" ng-repeat="testCase in testCases">
+<td style="width:2%" class="padding-left-lg"><span class="glyphicon glyphicon-play-circle font-md"></span></td>
+<td style="width:5%">{{testCase.testCaseName}}</td>
+<td style="width:25%">{{testCase.testCaseDescription}}</td>
+<td style="width:2%" class="text-right dropdown"><button ng-class="{'btn btn-default no-outline dropdown-toggle' : true, 'btn-active' : clicked==$index}" aria-haspopup="true" data-toggle="dropdown"><span class="glyphicon glyphicon-option-vertical font-md"></span></button>
+<ul class="dropdown-menu no-border" aria-labelledby="dropdownMenu1">
+    <li><a href="#steps/{{testCase.id}}">Edit</a></li>
+    <li><a href="#">Another action</a></li>
+    <li><a href="#">Something else here</a></li>
+    <li><a href="#">Separated link</a></li>
+  </ul></td>
+</tr></tbody></table></div>
+</div>

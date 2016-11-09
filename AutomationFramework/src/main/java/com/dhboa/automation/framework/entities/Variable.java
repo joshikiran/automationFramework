@@ -2,6 +2,7 @@ package com.dhboa.automation.framework.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.dhboa.automation.framework.components.AbstractEntity;
@@ -16,6 +17,7 @@ public class Variable extends AbstractEntity{
 	private String variableValue;
 	
 	@ManyToOne
+	@JoinColumn(name="test_suite_id")
 	private TestSuite testSuite;
 	
 	@ManyToOne

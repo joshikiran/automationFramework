@@ -14,14 +14,12 @@ $scope.authenticate = function(){
 		  }).success(function (data) {
 		  	if(data && data!="")
 		  	{
-		  		 user = {"userName" : "vysh",
-		  				 "password" : "vyshu"};
-		  		 //$http.post("usermanagement/changePassword?newPassword=vyshu",user)
+		  		
 		  		$rootScope.authenticated=true;
 	    	  userRoles=data.userRoles;
 	    	  angular.forEach(userRoles,function(value,index){
 	    		  if(value.role=="ROLE_ADMIN")
-	    			  $rootScope.isAdmin=true;
+	    			  $rootScope.isAdmin=true; 
 	    		  else if(value.role=="ROLE_USER")
 	    			  $rootScope.isUser=true;
 		  	})

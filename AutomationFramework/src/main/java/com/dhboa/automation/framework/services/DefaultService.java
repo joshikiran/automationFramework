@@ -10,6 +10,10 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.dhboa.automation.framework.components.AutowiredUtilObjects;
@@ -572,7 +576,7 @@ public class DefaultService extends AutowiredUtilObjects {
 	public void getMethods() throws SecurityException, ClassNotFoundException{
 		Method[] methods = Class.forName("com.dhboa.automation.framework.components.CommonActions").getDeclaredMethods();
 		Project project = new Project();
-		project.setProjectCode("Test");
+		project.setProjectCode("DefaultProject");
 		String descpString = null;
 		
 		try
@@ -590,15 +594,15 @@ public class DefaultService extends AutowiredUtilObjects {
 			Parameter[] params = method.getParameters();
 			List<String> paramNames = new ArrayList<>();
 			List<MethodParams> paramList = new ArrayList<>();
-			for(Parameter param: params){
+			for(int i=0; i<params.length; i++){
 				MethodParams paramObj = new MethodParams();
 				paramObj.setId(UUID.randomUUID().toString());
 				paramObj.setActive(true);
-				paramObj.setParamDescription(param.getType().getSimpleName());
-				paramObj.setParamName(param.getName());
+				paramObj.setParamDescription(params[i].getType().getSimpleName());
+				paramObj.setParamName(params[i].getName());
 				paramObj.setMethod(methodObj);
-
-				paramNames.add(param.getName());
+				paramObj.setOrder(i+1);
+				paramNames.add(params[i].getName());
 				descpString = String.join(",", paramNames);
 				methodObj.setMethodDescription(descpString);
 				paramList.add(paramObj);
@@ -613,7 +617,19 @@ public class DefaultService extends AutowiredUtilObjects {
 		}
 	}
 	
-	public void addBatch(){
+	public Page<TestCase> getTestCases(int pNo, int pSize, String testSuiteId, String caseName){
+		PageRequest page = new PageRequest(pNo, pSize, Direction.ASC,"order");
+	
+		return tcRep.findByTestCaseNameContainingAndTestSuite_IdLikeAndProjectAndUserAndIsActive(page, caseName, testSuiteId ,projRep.findOne("DefaultProject"),
+				userRep.findOne("vysh"),true);
+		
+	}
+
+	public Page<TestStep> getTestSteps(int pNo, int pSize, String testCaseId) {
+PageRequest page = new PageRequest(pNo, pSize, Direction.ASC,"order");
+		
+		return tsRep.findByTestCase_IdLikeAndProjectAndUserAndIsActive(page, testCaseId ,projRep.findOne("DefaultProject"),
+				userRep.findOne("vysh"),true);
 		
 	}
 	

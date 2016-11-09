@@ -2,24 +2,27 @@
 <html ng-app="afApp">
 <head>
 <meta charset="ISO-8859-1">
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no"/> -->
 <title>Automation Framework</title>
     <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/base-style.css" rel="stylesheet" />
     <link href="css/reset.css" rel="stylesheet" />
-    <link href="css/TestSuite.css" rel="stylesheet" />
+    <link href="css/testsuite.css" rel="stylesheet" />
      <link href="css/common.css" rel="stylesheet" />
      <link href="css/customization.css" rel="stylesheet" />
      <link href="css/default.css" rel="stylesheet" />
      <link href="css/layout.css" rel="stylesheet" />
 
-	<script src="js/angular.js"></script>
+	<script src="js/lib/angular.js"></script>
 	<script src="js/lib/jquery-2.1.4.min.js"></script>
 	<script src="js/lib/bootstrap.js"></script>
-    <script src="js/angular-route.js"></script>
-    <script src="js/defaultController.js"></script>
-    <script src="js/loginController.js"></script>
-   	<script src="js/homeController.js"></script>
-   	<script src="js/myDirectives.js"></script>
+    <script src="js/lib/angular-route.js"></script>
+    <script src="js/controllers/default.js"></script>
+    <script src="js/controllers/login-controller.js"></script>
+   	<script src="js/controllers/home-controller.js"></script>
+   	<script src="js/controllers/testcase-controller.js"></script>
+   	<script src="js/controllers/teststep-controller.js"></script>
+   	<script src="js/directives/my-directives.js"></script>
    	
     
 
@@ -30,12 +33,14 @@
      <div ng-controller="loginController" id="bodyContainer">
          <div id="header" ng-show="authenticated">
     </div>
+    <div></div>
         <ul id="verticalNav" ng-show="authenticated">
  
         <div id ="appName">
         <label>Web Tester</label>
         	
         </div>
+       
         <div id =menuItems>
             <a href="#{{link.href}}" ng-repeat="link in menuItems" ng-show="link.isValid">
                 <li id="{{link.id}}" ng-click="highlightRow(link.href)" ng-class="{'menu-active': currentPath==link.href}" style="padding-left: 20px;">
@@ -44,24 +49,28 @@
                 </li>
             </a>
        </div> 
-       <div id="quickLinks">
-       <label>QUICK LINKS</label>
+       <div class="full-width quick-links padding-top-lg padding-btm-lg">
+       <div class="padding-btm-lg">
+       <label class="font-lg padding-lg">QUICK LINKS</label>
        <a href="#{{link.href}}" ng-repeat="link in quickLinks" ng-show="link.isValid">
                 <li id="{{link.id}}" ng-click="highlightRow(link.href)" ng-class="{'menu-active': currentPath==link.href}" style="padding-left: 20px;">
        {{link.menuItemName}}
                 </li>
             </a>
-           
-       </div>
- <a href="#settings" ng-show="true"><li  ng-click="highlightRow(settings)" ng-class="{'menu-active': currentPath==settings}">
-        <span class="glyphicon glyphicon-cog"></span>SETTINGS</li></a> 
+         </div>  
+       
+       <div>
+ <a href="#settings" ng-show="true"><li  ng-click="highlightRow(settings)" ng-class="{'menu-active': currentPath==settings, 'padding-left-lg' : true}"style="padding-left: 20px;">
+        <span class="glyphicon glyphicon-cog"></span>SETTINGS</li></a> </div>
+        </div>
         </ul>
+        
         <div id="ViewContainer">
             <div id="viewContent">
                 <div ng-view="ng-view"></div>
             </div>
         </div>
-    </div>
+   
    
 </body>
 </html>

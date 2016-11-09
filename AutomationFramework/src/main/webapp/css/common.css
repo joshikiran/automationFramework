@@ -16,11 +16,11 @@
 }
 
 .border-right {
-    border-right: 1px solid #eaeaea;
+    border-right: 1px solid #eaeaea !important;
 }
 
 .border-left {
-    border-left: 1px solid #eaeaea;
+    border-left: 1px solid #eaeaea !important;
 }
 
 .border-bottom {
@@ -304,4 +304,7 @@ textarea {
 .field-error{
     border: 1px solid rgba(195, 53, 53, 0.4) !important;
     color: #C33535 !important;
+}
+.inline-block{
+	display : inline-block;
 }

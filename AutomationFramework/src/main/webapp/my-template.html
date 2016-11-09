@@ -1,0 +1,14 @@
+
+<div>
+<select ng-model="methodModel" ng-change="getParams(methodModel)" ng-options="method.methodName for method in methods"></select>
+
+
+<span compile ng-repeat="field in fields" ng-bind-html="returnHTML(field)">{{$index}}</span>
+<!-- <a ng-click="add()"><span class="glyphicon glyphicon-plus"></span></a>
+<a ng-click="remove()"><span class="glyphicon glyphicon-remove"></span></a> -->
+<br>
+<br> {{method.methodDescription}}{{stepDetails}}
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" ng-click="saveTestStep()">Save changes</button>
+
+</div>
