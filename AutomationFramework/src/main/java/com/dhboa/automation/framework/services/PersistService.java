@@ -64,7 +64,7 @@ public class PersistService extends AutowiredUtilObjects{
 		if(null!=object && null!=object.getTestSteps())
 		{
 			TestCase testCase = tcRep.findOne(testCaseId);
-			List<TestStep> testSteps = object.getTestSteps();
+			List<TestStep> testSteps = object.getTestSteps();	
 			saveTestSteps(testCase, testSteps, project, user);
 		}
 	}

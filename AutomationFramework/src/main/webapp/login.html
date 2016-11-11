@@ -6,13 +6,13 @@
 <form class="col-md-4 col-md-offset-4" style="margin-top:200px;" ng-hide="authenticated">
 <div class="form-group">
     <label>Username:</label>
-    <input type="text" class="form-control" id="username" ng-model="userName" placeholder="Username">
+    <input type="text" class="form-control" id="username" ng-model="credentials.userName" placeholder="Username">
   </div>
   <div class="form-group">
     <label>Password:</label>
-    <input type="password" class="form-control" id="password" ng-model="password" placeholder="Password">
+    <input type="password" class="form-control" id="password" ng-model="credentials.password" placeholder="Password">
   </div>
- <button class="btn btn-primary" ng-click="authenticate()">Login</button> 
+ <button class="btn btn-primary" ng-click="authenticate(credentials)">Login</button> 
 </form>
 </div>
 </div>

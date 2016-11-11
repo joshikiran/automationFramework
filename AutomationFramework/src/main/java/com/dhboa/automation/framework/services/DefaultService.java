@@ -617,20 +617,71 @@ public class DefaultService extends AutowiredUtilObjects {
 		}
 	}
 	
-	public Page<TestCase> getTestCases(int pNo, int pSize, String testSuiteId, String caseName){
-		PageRequest page = new PageRequest(pNo, pSize, Direction.ASC,"order");
-	
-		return tcRep.findByTestCaseNameContainingAndTestSuite_IdLikeAndProjectAndUserAndIsActive(page, caseName, testSuiteId ,projRep.findOne("DefaultProject"),
-				userRep.findOne("vysh"),true);
+	public Page<TestCase> getTestCases(int pNo, int pSize, String testSuiteId, String caseName, String projectCode){
+		PageRequest page = null;
+		Project project = null;
+		User loggedInUser = null; 
+		Page<TestCase> testCases = null;
+		String methodName = "getTestCases";
+		try
+		{
+			if(pSize==0)
+				pSize =  CommonUtility.defaultPageSize;
+		page = new PageRequest(pNo, pSize, Direction.ASC,"order");
+		loggedInUser = commonUtil.getLoggedInUser();
+		project = projRep.findOne(projectCode);
+		testCases = tcRep.findByTestCaseNameContainingAndTestSuite_IdLikeAndProjectAndUserAndIsActive(page, caseName, testSuiteId , project,
+				loggedInUser,true);
+		}
+		catch(Exception e){
+			alServ.logError(logger, currentClass, methodName, FAILED_STATUS, "Exception occured while fetching TestCases for TestSuite"+testSuiteId, e);
+		}
+		return testCases;
 		
 	}
 
-	public Page<TestStep> getTestSteps(int pNo, int pSize, String testCaseId) {
-PageRequest page = new PageRequest(pNo, pSize, Direction.ASC,"order");
-		
-		return tsRep.findByTestCase_IdLikeAndProjectAndUserAndIsActive(page, testCaseId ,projRep.findOne("DefaultProject"),
-				userRep.findOne("vysh"),true);
-		
+	public Page<TestStep> getTestSteps(int pNo, int pSize, String testCaseId, String stepDetails, String projectCode) {
+		PageRequest page = null;
+		Project project = null;
+		User loggedInUser = null; 
+		Page<TestStep> testSteps = null;
+		String methodName = "getTestSteps";
+		try
+		{
+			if(pSize==0)
+				pSize =  CommonUtility.defaultPageSize;
+		page = new PageRequest(pNo, pSize, Direction.ASC,"order");
+		loggedInUser = commonUtil.getLoggedInUser();
+		project = projRep.findOne(projectCode);
+		testSteps = tsRep.findDistinctTestStepByStepDetails_fieldValueContainingAndTestCase_IdLikeAndAndProjectAndUserAndIsActive(page, stepDetails, testCaseId,  project, loggedInUser, true);
+		}
+		catch(Exception e){
+			alServ.logError(logger, currentClass, methodName, FAILED_STATUS, "Exception occured while fetching TestSteps for TestCase"+testCaseId, e);
+		}
+		return testSteps;
+	}
+
+	public Page<TestSuite> getTestSuites(int pNo, int pSize, String suiteName, String projectCode) {		
+		PageRequest page = null;
+		Project project = null;
+		User loggedInUser = null; 
+		Page<TestSuite> testSuites = null;
+		String methodName = "getTestCases";
+		try
+		{
+			if(pSize==0)
+				pSize =  CommonUtility.defaultPageSize;
+		page = new PageRequest(pNo, pSize);
+		loggedInUser = commonUtil.getLoggedInUser();
+		project = projRep.findOne(projectCode);
+		testSuites = tSuiteRep.findBySuiteNameContainingAndProjectAndUserAndIsActive(page, suiteName , project,
+				loggedInUser,true);
+		}
+		catch(Exception e){
+			alServ.logError(logger, currentClass, methodName, FAILED_STATUS, "Exception occured while fetching TestSuites under project"+projectCode, e);
+		}
+		return testSuites;
+	
 	}
 	
 }

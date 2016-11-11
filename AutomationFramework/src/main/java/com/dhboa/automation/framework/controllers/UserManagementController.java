@@ -1,6 +1,7 @@
 package com.dhboa.automation.framework.controllers;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dhboa.automation.framework.components.AutowiredUtilObjects;
+import com.dhboa.automation.framework.entities.Project;
 import com.dhboa.automation.framework.entities.User;
 
 @RestController
@@ -22,8 +24,8 @@ public class UserManagementController extends AutowiredUtilObjects{
 	}
 	
 	@RequestMapping(value="/getProjects")
-	public void getProjects(){
-		userServ.getProjects();
+	public List<Project> getProjects(){
+		return userServ.getProjects();
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)

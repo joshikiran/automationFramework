@@ -20,8 +20,9 @@
     <script src="js/controllers/default.js"></script>
     <script src="js/controllers/login-controller.js"></script>
    	<script src="js/controllers/home-controller.js"></script>
-   	<script src="js/controllers/testcase-controller.js"></script>
-   	<script src="js/controllers/teststep-controller.js"></script>
+   	<script src="js/controllers/test-case-controller.js"></script>
+   	<script src="js/controllers/test-step-controller.js"></script>
+   	<script src="js/controllers/test-suite-controller.js"></script>
    	<script src="js/directives/my-directives.js"></script>
    	
     
@@ -32,6 +33,10 @@
 
      <div ng-controller="loginController" id="bodyContainer">
          <div id="header" ng-show="authenticated">
+         <div id="selectToolBar" class="borderize">
+<select class="form-control borderize pull-right font-small" ng-model="selectedProject" ng-change="alertAll()" ng-options="project.projectCode for project in projects" style="width: 140px;height:30px;margin:10px">
+</select>
+</div>
     </div>
     <div></div>
         <ul id="verticalNav" ng-show="authenticated">

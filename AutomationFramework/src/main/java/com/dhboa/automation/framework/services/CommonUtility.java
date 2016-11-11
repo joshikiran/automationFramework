@@ -12,7 +12,8 @@ public class CommonUtility extends AutowiredUtilObjects{
 	public static final String IN_PROGRESS_STATUS = "INPROGRESS";
 	public static final String SUCCESS_STATUS = "SUCCESS";
 	public static final String FAILED_STATUS = "FAILED";
-	
+	public static final int defaultPageNumber = 0;
+	public static final int defaultPageSize = 10;
 	/**
 	 * @return
 	 */

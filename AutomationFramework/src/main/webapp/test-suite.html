@@ -1,10 +1,4 @@
-<div ng-controller="homeController">
-<div id="selectToolBar" class="borderize">
-<select class="form-control borderize pull-right font-small" style="width: 140px;height:30px;margin:10px">
-<option>Service Registry</option>
-<option>Service Registry</option>
-</select>
-</div>
+<div ng-controller="testSuiteController">
 <div class ="bread-crumbs padding-left-lg">
 <span ng-repeat="crumb in crumbs">
 <a ng-if="!($last)" href ="{{crumb.href}}">{{crumb.name}}</a>
@@ -13,18 +7,46 @@
 </span>
 </div>
  <div class="menu-bar borderize">
-<button class="btn transparent no-outline pull-left">
+<button class="btn transparent no-outline pull-left" data-toggle="modal" data-target="#createSuiteModal">
 <span class="glyphicon glyphicon-plus text-success"></span> Create Suite</button>
 <div class="pull-right">
 <button class="btn btn-link transparent no-outline border-right border-left inline-block" >Create Execution Batch</button><button class="btn transparent no-outline inline-block">Glyph</button>
 </div>
 </div>
-<div ng-repeat="suite in testsuite" class="suite-card inline-block">
-<div class="padding-btm-sm text-strong">{{suite.suiteName}}</div>
+<div ng-repeat="suite in testSuites" class="suite-card inline-block">
+<div class="padding-btm-sm text-strong"><a href="#cases/{{suite.id}}">{{suite.suiteName}}</a></div>
 <div class="suite-description ellipsis">{{suite.suiteDescription}}</div>
 <div class="suite-buttons">
 <a href="" class="pull-left">Edit</a>
 <a href="" class="pull-right">Launch</a>
 </div>
 </div>
+
+<!--  Create Test Suite Modal -->
+
+<div class="modal fade" id="createSuiteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+      <label>Suite Name:</label></br>
+   <input class="form-control" ng-model="testSuite.suiteName"/></br> </br>
+    <label>Suite Description:</label></br>
+   <input class="form-control" ng-model="testSuite.suiteDescription"/>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="createSuite(testSuite)">Create Suite</button> 
+          <button type="button" class="btn btn-primary" ng-click="">Add Test Cases</button> 
+        <button type="button" class="btn btn-default borderize" data-dismiss="modal">Close</button>
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End of the Modal  -->
 </div>

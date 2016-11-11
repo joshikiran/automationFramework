@@ -24,10 +24,12 @@ public class TestStep extends AbstractEntity{
 	private TestCase testCase;
 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "project_code", nullable = true, updatable = true, insertable = true)
 	private Project project;
 
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "username", nullable = true, updatable = true, insertable = true)
 	private User user;
 

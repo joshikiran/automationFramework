@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.dhboa.automation.framework.components.AutowiredUtilObjects;
 import com.dhboa.automation.framework.entities.Project;
 import com.dhboa.automation.framework.entities.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class UserManagementService extends AutowiredUtilObjects{

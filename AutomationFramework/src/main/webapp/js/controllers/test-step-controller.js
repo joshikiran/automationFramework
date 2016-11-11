@@ -1,7 +1,7 @@
 afApp.controller("testStepController",["$scope", "$http","$routeParams", function($scope, $http, $routeParams) {debugger
 
 
-$http.get("getTestSteps?pNo=0&pSize=10&testCaseId="+$routeParams.id).success(function(response){debugger
+$http.get("getTestSteps?pNo=0&pSize=10&testCaseId="+$routeParams.id+"&projectCode=DefaultProject&searchParam=").success(function(response){debugger
 		$scope.testSteps = response.content;
 	});
 
@@ -80,7 +80,7 @@ $http.get("getTestSteps?pNo=0&pSize=10&testCaseId="+$routeParams.id).success(fun
 //  $scope.testCase.testSteps.push({stepDetails : []});
 //     
 //  }
-/* $scope.saveTestStep= function(){
+ $scope.saveTestStep= function(){
 	postObj={
 	testSteps: [$scope.testStep]
 }
@@ -88,5 +88,5 @@ $http.get("getTestSteps?pNo=0&pSize=10&testCaseId="+$routeParams.id).success(fun
 $http.post("default/save?testSuiteId=2&projectCode=Test&testCaseId="+$routeParams.id,postObj).success(function(data){
 console.log(data);
 })
- }*/
+ }
 }])

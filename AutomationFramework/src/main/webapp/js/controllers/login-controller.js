@@ -1,17 +1,17 @@
 afApp.controller("loginController", ["$scope", "$rootScope", "$http", "$location", function($scope, $rootScope, $http, $location){
 	
-$scope.authenticate = function(){
+$scope.authenticate = function(credentials){
 		$rootScope.authenticated=false;
 		$rootScope.isUser=false;
 		$rootScope.isAdmin=false;
 	
-		if($scope.userName && $scope.password)
-		var headers= {'Authorization': "Basic " + btoa($scope.userName + ":" + $scope.password)};
+		if(credentials && credentials.userName && credentials.password)
+		var headers= {'Authorization': "Basic " + btoa(credentials.userName + ":" + credentials.password)};
 		else
 			headers={};
 		  $http.get("usermanagement/login",{
 			  headers:headers
-		  }).success(function (data) {
+		  }).success(function (data) {debugger
 		  	if(data && data!="")
 		  	{
 		  		
@@ -46,8 +46,29 @@ $scope.authenticate = function(){
 		}
 
 		
-		$scope.authenticate();
+		$scope.authenticate(null);
+		$scope.alertAll = function(){
+			$scope.$emit('alertProjectChange',$scope.selectedProject.projectCode);
+		}
+		$scope.getProjects= function(){
+		$http.get("usermanagement/getProjects").success(function(response){debugger
+			$scope.projects = response;
+	$scope.selectedProject=$scope.projects[0];
+	$scope.alertAll();
+		});
+}
+		$scope.getProjects();
+		
+		/*$scope.getTestSuites= function(){
+			$http.get("getTestSuites?pNo=0&pSize=10&SuiteName=&projectCode="+$scope.selectedProject.projectCode).success(function(response){debugger
+					$scope.testSuites = response.content;
+			});
+		}*/
 	
-	
-	//$http.post("logout");
+/*	$http.post("logout").success(function(data){
+		$location.url("/login");
+		debugger
+	}).error(function(data){
+		debugger
+	});*/
 }])

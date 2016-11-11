@@ -11,13 +11,23 @@ afApp.config(function($routeProvider,$httpProvider){
 		templateUrl:"test-suite.html",
 	}).when("/cases",{
 		templateUrl:"test-case.html",
+	}).when("/cases/:id",{
+		templateUrl:"test-case.html",
 	}).when("/steps/:id",{
 		templateUrl:"test-step.html",
 	}).otherwise("/")
 })
 
-afApp.run(function($rootScope,$http,$location){
+afApp.run(function($rootScope,$http,$location,$timeout){
 
+	$rootScope.$on('alertProjectChange', function(ev, data){debugger
+		 $timeout(function(){
+	$rootScope.$broadcast('projectChanged',data);
+		  });
+	})
+
+	
+	
 /*	$rootScope.testCases=[{ 
 			"active" : true,
 			"template" : true,
@@ -42,7 +52,7 @@ afApp.run(function($rootScope,$http,$location){
 			"testCaseName" : "Test Case Title 3",
 			"testCaseReference" : "df",
 		}]*/
-	$rootScope.testsuite=[{ 
+/*	$rootScope.testsuite=[{ 
 		"id" : "0aa3ccb2-03ff-45aa-8ce1-41c837912975",
 		"active" : true,
 		"suiteDescription" : "Sample Description",
@@ -73,7 +83,7 @@ afApp.run(function($rootScope,$http,$location){
 		"suiteName" : "New testSuite3",
 		"testSuiteReference" : "",
 		
-	}];
+	}];*/
 	
 
 	
