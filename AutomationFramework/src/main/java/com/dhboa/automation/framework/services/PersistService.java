@@ -1,13 +1,10 @@
 package com.dhboa.automation.framework.services;
 
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.dhboa.automation.framework.components.AutowiredUtilObjects;
@@ -52,7 +49,7 @@ public class PersistService extends AutowiredUtilObjects{
 		if(null!=object && null!=object.getTestSuites()){
 		
 			 testSuites = object.getTestSuites();
-			 saveTestSuites(testSuites,testSuiteId, project, user);
+			 saveTestSuites(testSuites, project, user);
 		
 		}
 		if(null!=object && null!=object.getTestCases())
@@ -75,19 +72,18 @@ public class PersistService extends AutowiredUtilObjects{
 	 * @param project
 	 * @param user
 	 */
-	private void saveTestSuites(List<TestSuite> testSuites, String testSuiteId, Project project, User user) {
+	private void saveTestSuites(List<TestSuite> testSuites, Project project, User user) {
 		String methodName = "saveTestSuites";
 		List<TestCase> testCases=null;
 		try
 		{
 		for(TestSuite testSuite : testSuites){		
 			
-			if(null == testSuiteId || "".equalsIgnoreCase(testSuiteId))
-				testSuiteId = UUID.randomUUID().toString();
-				//testSuite.setCreatedOn(new Date());
+			if(null == testSuite.getId() || "".equalsIgnoreCase(testSuite.getId()))
+				testSuite.setId(UUID.randomUUID().toString());
+				
 				testSuite.setCreatedBy(user.getUserName());
 				testSuite.setActive(true);
-				testSuite.setId(testSuiteId);
 				testSuite.setProject(project);
 				testSuite.setUser(user);
 				
@@ -119,15 +115,17 @@ public class PersistService extends AutowiredUtilObjects{
 		for(TestCase testCase : testCases){
 			testCase.setActive(true);
 			if(null == testCase.getId() || "".equalsIgnoreCase(testCase.getId()))
-			testCase.setId(UUID.randomUUID().toString());
-			//testCase.setCreatedOn(new Date());
+			{
+				testCase.setId(UUID.randomUUID().toString());
+				order = tcRep.findHighestOrderTestCaseInTestSuite(testSuite.getId(), project.getProjectCode(), user.getUserName());
+				if(order == null)
+					order = 1;
+				testCase.setOrder(order+1);
+			}
 			testCase.setCreatedBy(user.getUserName());
 			testCase.setProject(project);
 			testCase.setUser(user);
-			order = tcRep.findHighestOrderTestCaseInTestSuite(testSuite.getId(), project.getProjectCode(), user.getUserName());
-			if(order == null)
-				order = 1;
-			testCase.setOrder(order+1);
+			
 			testCase.setTestSuite(testSuite);
 			tcRep.save(testCase); 
 			alServ.log("INFO", logger, className, methodName, SUCCESS_STATUS,
@@ -157,17 +155,19 @@ public class PersistService extends AutowiredUtilObjects{
 		for(TestStep testStep : testSteps){
 			order = testSteps.indexOf(testStep);
 			if(null == testStep.getId() || "".equalsIgnoreCase(testStep.getId()))
-			testStep.setId(UUID.randomUUID().toString());
+			{
+				testStep.setId(UUID.randomUUID().toString());
+				order = tsRep.findHighestOrderTestStepInTestCase(testCase.getId(), project.getProjectCode(), user.getUserName());
+				if(order == null)
+					order = 1;
+				testStep.setOrder(order+1);
+			}
 			testStep.setActive(true);
-			//testStep.setCreatedOn(new Date());
 			testStep.setCreatedBy(user.getUserName());
 			testStep.setProject(project);
 			testStep.setUser(user);
 			testStep.setTestCase(testCase);
-			order = tsRep.findHighestOrderTestStepInTestCase(testCase.getId(), project.getProjectCode(), user.getUserName());
-			if(order == null)
-				order = 1;
-			testStep.setOrder(order+1);
+			
 			if(testStep.getTestCaseName()==null || testStep.getTestCaseDescription()==null)
 			{
 				testStep.setTestCaseName(testCase.getTestCaseName());

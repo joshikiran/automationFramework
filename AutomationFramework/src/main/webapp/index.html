@@ -13,10 +13,11 @@
      <link href="css/default.css" rel="stylesheet" />
      <link href="css/layout.css" rel="stylesheet" />
 
-	<script src="js/lib/angular.js"></script>
 	<script src="js/lib/jquery-2.1.4.min.js"></script>
+	<script src="js/lib/angular.js"></script>
 	<script src="js/lib/bootstrap.js"></script>
     <script src="js/lib/angular-route.js"></script>
+    <script type='text/javascript' src='js/lib/ng-infinite-scroll.js'></script>
     <script src="js/controllers/default.js"></script>
     <script src="js/controllers/login-controller.js"></script>
    	<script src="js/controllers/home-controller.js"></script>
@@ -34,7 +35,7 @@
      <div ng-controller="loginController" id="bodyContainer">
          <div id="header" ng-show="authenticated">
          <div id="selectToolBar" class="borderize">
-<select class="form-control borderize pull-right font-small" ng-model="selectedProject" ng-change="alertAll()" ng-options="project.projectCode for project in projects" style="width: 140px;height:30px;margin:10px">
+<select class="form-control borderize pull-right font-small" ng-model="$root.selectedProject" ng-change="alertAll()" ng-options="project.projectCode for project in projects" style="width: 140px;height:30px;margin:10px">
 </select>
 </div>
     </div>
@@ -46,7 +47,7 @@
         	
         </div>
        
-        <div id =menuItems>
+        <div id ="menuItems">
             <a href="#{{link.href}}" ng-repeat="link in menuItems" ng-show="link.isValid">
                 <li id="{{link.id}}" ng-click="highlightRow(link.href)" ng-class="{'menu-active': currentPath==link.href}" style="padding-left: 20px;">
                    <!--  <span class="glyphicon " ng-class="link.styleClass"></span> -->

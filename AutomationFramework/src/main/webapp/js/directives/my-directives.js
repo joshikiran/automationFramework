@@ -82,9 +82,8 @@ scope.saveTestStep= function(){debugger
 	testSteps: [testStep]
 }
 
-$http.post("default/save?testSuiteId=1&projectCode=DefaultProject&testCaseId="+$routeParams.id,postObj).success(function(data){
-console.log(data);
-scope.testSteps.push(testStep);
+$http.post("default/save?testSuiteId=&projectCode="+$rootScope.selectedProject.projectCode+"&testCaseId="+$routeParams.id,postObj).success(function(data){
+	$('testStepModal').modal('hide');
 })
  }
     }

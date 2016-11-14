@@ -11,7 +11,7 @@ $scope.authenticate = function(credentials){
 			headers={};
 		  $http.get("usermanagement/login",{
 			  headers:headers
-		  }).success(function (data) {debugger
+		  }).success(function (data) {
 		  	if(data && data!="")
 		  	{
 		  		
@@ -47,17 +47,7 @@ $scope.authenticate = function(credentials){
 
 		
 		$scope.authenticate(null);
-		$scope.alertAll = function(){
-			$scope.$emit('alertProjectChange',$scope.selectedProject.projectCode);
-		}
-		$scope.getProjects= function(){
-		$http.get("usermanagement/getProjects").success(function(response){debugger
-			$scope.projects = response;
-	$scope.selectedProject=$scope.projects[0];
-	$scope.alertAll();
-		});
-}
-		$scope.getProjects();
+	
 		
 		/*$scope.getTestSuites= function(){
 			$http.get("getTestSuites?pNo=0&pSize=10&SuiteName=&projectCode="+$scope.selectedProject.projectCode).success(function(response){debugger

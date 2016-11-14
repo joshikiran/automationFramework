@@ -13,22 +13,24 @@
 <button class="btn btn-link transparent no-outline border-right border-left inline-block" >Create Execution Batch</button><button class="btn transparent no-outline inline-block">Glyph</button>
 </div>
 </div>
+  <div infinite-scroll='loadMore()' infinite-scroll-container='"#ViewContainer"' infinite-scroll-disabled='last' infinite-scroll-distance='0' >
 <div ng-repeat="suite in testSuites" class="suite-card inline-block">
 <div class="padding-btm-sm text-strong"><a href="#cases/{{suite.id}}">{{suite.suiteName}}</a></div>
 <div class="suite-description ellipsis">{{suite.suiteDescription}}</div>
 <div class="suite-buttons">
-<a href="" class="pull-left">Edit</a>
+<a href="" class="pull-left"  data-toggle="modal" data-target="#createSuiteModal" ng-click="editTestSuite($index)">Edit</a>
 <a href="" class="pull-right">Launch</a>
 </div>
 </div>
-
+</div>
 <!--  Create Test Suite Modal -->
 
 <div class="modal fade" id="createSuiteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" ng-click="modalClose()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        
         <h4 class="modal-title" id="myModalLabel">Modal title</h4>
       </div>
       <div class="modal-body">
@@ -40,8 +42,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" ng-click="createSuite(testSuite)">Create Suite</button> 
-          <button type="button" class="btn btn-primary" ng-click="">Add Test Cases</button> 
-        <button type="button" class="btn btn-default borderize" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" ng-click="addCases(testSuite)">Add Test Cases</button> 
+        <button type="button" class="btn btn-default borderize" ng-click="modalClose()"  data-dismiss="modal">Close</button>
       
       </div>
     </div>

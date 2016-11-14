@@ -1,5 +1,5 @@
 
-var afApp = angular.module("afApp",["ngRoute"]);
+var afApp = angular.module("afApp",["ngRoute", "infinite-scroll"]);
 
 afApp.config(function($routeProvider,$httpProvider){
 	 $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -20,11 +20,18 @@ afApp.config(function($routeProvider,$httpProvider){
 
 afApp.run(function($rootScope,$http,$location,$timeout){
 
-	$rootScope.$on('alertProjectChange', function(ev, data){debugger
-		 $timeout(function(){
-	$rootScope.$broadcast('projectChanged',data);
-		  });
-	})
+	$rootScope.alertAll = function(){
+		$rootScope.$broadcast('projectChanged');
+	}
+	$rootScope.getProjects= function(){
+	$http.get("usermanagement/getProjects").success(function(response){
+		$rootScope.projects = response;
+$rootScope.selectedProject=$rootScope.projects[0];
+
+	});
+}
+	$rootScope.getProjects();
+
 
 	
 	

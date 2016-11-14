@@ -7,7 +7,7 @@
 </span>
 </div>
  <div class="menu-bar borderize">
-<button class="btn transparent no-outline pull-left">
+<button class="btn transparent no-outline pull-left" data-toggle="modal"  data-target="#createCaseModal" >
 <span class="glyphicon glyphicon-plus text-success"></span> Create Case</button>
 <div class="pull-right">
 <button class="btn btn-link transparent no-outline border-right border-left inline-block" >Create Execution Batch</button><button class="btn transparent no-outline inline-block">Glyph</button>
@@ -18,14 +18,42 @@
 <tbody >
 <tr class="data-item font-md" ng-repeat="testCase in testCases">
 <td style="width:2%" class="padding-left-lg"><span class="glyphicon glyphicon-play-circle font-md"></span></td>
-<td style="width:5%">{{testCase.testCaseName}}</td>
+<td style="width:5%"><a href="#steps/{{testCase.id}}">{{testCase.testCaseName}}</a></td>
 <td style="width:25%">{{testCase.testCaseDescription}}</td>
 <td style="width:2%" class="text-right dropdown"><button ng-class="{'btn btn-default no-outline dropdown-toggle' : true, 'btn-active' : clicked==$index}" aria-haspopup="true" data-toggle="dropdown"><span class="glyphicon glyphicon-option-vertical font-md"></span></button>
 <ul class="dropdown-menu no-border" aria-labelledby="dropdownMenu1">
-    <li><a href="#steps/{{testCase.id}}">Edit</a></li>
+    <li><a href="" data-toggle="modal" data-target="#createCaseModal" ng-click="editTestCase($index)">Edit</a></li>
     <li><a href="#">Another action</a></li>
     <li><a href="#">Something else here</a></li>
     <li><a href="#">Separated link</a></li>
   </ul></td>
 </tr></tbody></table></div>
+
+<!--  Create Test Case Modal -->
+
+<div class="modal fade" id="createCaseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="modalClose()" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+      <label>TestCase Name:</label></br>
+   <input class="form-control" ng-model="testCase.testCaseName"/></br> </br>
+    <label>TestCase Description:</label></br>
+   <input class="form-control" ng-model="testCase.testCaseDescription"/>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="createCase(testCase)">Create Case</button> 
+          <button type="button" class="btn btn-primary" ng-click="addSteps(testCase)">Add Test Steps</button> 
+        <button type="button" class="btn btn-default borderize" ng-click="modalClose()" data-dismiss="modal">Close</button>
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End of the Modal  -->
 </div>

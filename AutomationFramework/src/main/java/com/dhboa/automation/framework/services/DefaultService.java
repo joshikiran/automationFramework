@@ -671,7 +671,7 @@ public class DefaultService extends AutowiredUtilObjects {
 		{
 			if(pSize==0)
 				pSize =  CommonUtility.defaultPageSize;
-		page = new PageRequest(pNo, pSize);
+		page = new PageRequest(pNo, pSize, Direction.DESC, "createdOn");
 		loggedInUser = commonUtil.getLoggedInUser();
 		project = projRep.findOne(projectCode);
 		testSuites = tSuiteRep.findBySuiteNameContainingAndProjectAndUserAndIsActive(page, suiteName , project,
